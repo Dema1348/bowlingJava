@@ -46,6 +46,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButton2.setText("Max Score");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Exit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +101,12 @@ public class Main extends javax.swing.JFrame {
         players.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NewPlayers players =  new NewPlayers();
+        players.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
