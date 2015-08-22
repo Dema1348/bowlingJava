@@ -12,7 +12,7 @@ package bowling;
 public  class Random {
     
     //Metodo que permite generar un numero random desde el 0 hasta el 10
-    public static byte Azar(){
-    return (byte)(Math.random()*10+0);
+    public static byte Azar(byte max){
+    return (byte)(Math.random()*(max-0)+0);
     }
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package bowling;
-
+import java.awt.Color;
 /**
  *
  * @author LC
@@ -36,6 +36,7 @@ public class NewPlayers extends javax.swing.JFrame {
         nombrePlayer2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        message = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,7 +86,10 @@ public class NewPlayers extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nombrePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(56, 56, 56)
+                        .addComponent(message)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,9 +110,13 @@ public class NewPlayers extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(message))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        message.getAccessibleContext().setAccessibleName("message");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -117,13 +125,32 @@ public class NewPlayers extends javax.swing.JFrame {
         //Se sacan las variables y se validan
         String nombre1= nombrePlayer1.getText();
         String nombre2= nombrePlayer2.getText();
-        //Se intancia cada jugador con su nombre respectivo y su nivel
-        Player player1= new Player(nombre1, (byte)0);
-        Player player2= new Player(nombre2, (byte)0);
+        Color color = new Color(255,0,0);
+        byte op = Player.validation(nombre1, nombre2);
+        switch (op)
+        {
+            case 0: message.setText("Nombre de jugador uno no válido");
+                    nombrePlayer1.requestFocus();
+                    nombrePlayer1.setForeground(color);
+                    break;
+            case 1: message.setText("Nombre de jugador dos no válido");
+                    nombrePlayer2.requestFocus();
+                    nombrePlayer2.setForeground(color);
+                    break;
+            case 2: message.setText("Nombre de jugadores no válido");
+                    nombrePlayer1.requestFocus();
+                    nombrePlayer1.setForeground(color);
+                    nombrePlayer2.setForeground(color);
+                    break;
+            case 3: //Se intancia cada jugador con su nombre respectivo y su nivel
+                    Player player1= new Player(nombre1, (byte)0);
+                    Player player2= new Player(nombre2, (byte)0); 
+                    Game game = new Game(player1, player2);//Se instancia la ventana para ser utilizada
+                    game.setVisible(true);//Ponemos visible la ventana
+                    this.setVisible(false);//Dejamos invible la ventana anterior
+                    break;
+        }
         
-        Game game = new Game(player1, player2);//Se instancia la ventana para ser utilizada
-        game.setVisible(true);//Ponemos visible la ventana
-        this.setVisible(false);//Dejamos invible la ventana anterior
         
       
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -143,6 +170,7 @@ public class NewPlayers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel message;
     private javax.swing.JTextField nombrePlayer1;
     private javax.swing.JTextField nombrePlayer2;
     // End of variables declaration//GEN-END:variables
