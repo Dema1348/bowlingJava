@@ -15,12 +15,15 @@ public class Game extends javax.swing.JFrame {
     private Player player2;
     short score1, score2;
     byte intento = 1;
-    byte contador = 1;
+    byte contador = 0;
     byte pinos = 10;
+    String msg= "Puntuacion: ";
     
     public Game(Player player1, Player player2) {
         initComponents();
         this.setLocationRelativeTo(null);
+        lblScore1.setText(msg);
+        lblScore2.setText(msg);
         this.player1= player1;
         this.player2=player2;
         llenarNombres();//Metodo para llenar los nombres
@@ -41,6 +44,8 @@ public class Game extends javax.swing.JFrame {
         derribos = new javax.swing.JLabel();
         btnLanza1 = new javax.swing.JButton();
         btnLanza2 = new javax.swing.JButton();
+        lblScore1 = new javax.swing.JLabel();
+        lblScore2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +71,12 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
+        lblScore1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblScore1.setText("jLabel1");
+
+        lblScore2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblScore2.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,7 +97,12 @@ public class Game extends javax.swing.JFrame {
                         .addComponent(nombre1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                         .addComponent(nombre2)
-                        .addGap(49, 49, 49))))
+                        .addGap(49, 49, 49))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblScore1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblScore2)
+                        .addGap(111, 111, 111))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,9 +111,13 @@ public class Game extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre1)
                     .addComponent(nombre2))
-                .addGap(76, 76, 76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblScore1)
+                    .addComponent(lblScore2))
+                .addGap(56, 56, 56)
                 .addComponent(derribos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLanza1)
                     .addComponent(btnLanza2))
@@ -109,15 +129,17 @@ public class Game extends javax.swing.JFrame {
 
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
 
-        if(contador<21)
+            if(contador<40)
         {
-            byte lanzamiento = Random.Azar(pinos);
+        byte lanzamiento = Random.Azar(pinos);
         pinos = (byte) (pinos - lanzamiento);
-        System.out.println(lanzamiento);
         intento++;
         score1= (short)(score1+lanzamiento);
         player1.setScore((short)(player1.getScore() + score1));
         contador++;
+        lblScore1.setText(msg+score1);
+
+        //En caso de strike 
         if(lanzamiento == 10)
         {
             derribos.setText("Strike!");
@@ -130,6 +152,15 @@ public class Game extends javax.swing.JFrame {
             pinos=10;
             intento=1;
         }
+        
+        //Por reglamento si en el último intento el jugador realiza un strike 
+        //Tiene derecho a volver a tirar
+        if(contador==38 || contador== 37 && lanzamiento == 10)
+        {
+            intento=2;
+            pinos = 10;
+            contador=38;
+        }
         if(intento==3) 
         {
             btnLanza1.setEnabled(false);
@@ -137,21 +168,25 @@ public class Game extends javax.swing.JFrame {
             pinos=10;
             intento=1;
         }
+        }else
+        {
+            btnLanza1.setEnabled(false);
+            btnLanza2.setEnabled(false);
         }
-        
-        btnLanza1.setEnabled(false);
-        btnLanza2.setEnabled(false);
     }//GEN-LAST:event_btnLanza1ActionPerformed
 
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
-        if(contador<21){
-            byte lanzamiento = Random.Azar(pinos);
+            if(contador<40)
+        {
+        byte lanzamiento = Random.Azar(pinos);
         pinos = (byte) (pinos - lanzamiento);
-        System.out.println(lanzamiento);
         intento++;
-        score1= (short)(score1+lanzamiento);
-        player1.setScore((short)(player1.getScore() + score1));
+        score2= (short)(score2+lanzamiento);
+        player2.setScore((short)(player2.getScore() + score2));
         contador++;
+        lblScore2.setText(msg+score2);
+
+        //En caso de strike 
         if(lanzamiento == 10)
         {
             derribos.setText("Strike!");
@@ -164,6 +199,15 @@ public class Game extends javax.swing.JFrame {
             pinos=10;
             intento=1;
         }
+        
+        //Por reglamento si en el último intento el jugador realiza un strike 
+        //Tiene derecho a volver a tirar
+        if(contador==40 || contador== 39 && lanzamiento == 10)
+        {
+            intento=2;
+            pinos = 10;
+            contador=38;
+        }
         if(intento==3) 
         {
             btnLanza1.setEnabled(true);
@@ -171,10 +215,11 @@ public class Game extends javax.swing.JFrame {
             pinos=10;
             intento=1;
         }
-        }
-        
+        }else
+        {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
+        }
     }//GEN-LAST:event_btnLanza2ActionPerformed
 
     /**
@@ -186,6 +231,8 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton btnLanza1;
     private javax.swing.JButton btnLanza2;
     private javax.swing.JLabel derribos;
+    private javax.swing.JLabel lblScore1;
+    private javax.swing.JLabel lblScore2;
     private javax.swing.JLabel nombre1;
     private javax.swing.JLabel nombre2;
     // End of variables declaration//GEN-END:variables
