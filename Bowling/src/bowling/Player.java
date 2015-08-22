@@ -17,12 +17,20 @@ public class Player {
 
     public Player() {
     }
-
+    //instancia al jugador para uniciar una partida
     public Player(String nombre, byte level) {
         this.nombre = nombre;
         this.level = level;
         this.score = 0;//Todo jugador parte con score de 0
     }
+    
+    //intancia al jugador para guardarlo en los records
+
+    public Player(String nombre, short score) {
+        this.nombre = nombre;
+        this.score = score;
+    }
+    
 
     public String getNombre() {
         return nombre;
