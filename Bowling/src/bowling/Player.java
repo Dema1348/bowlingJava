@@ -55,12 +55,28 @@ public class Player {
     public void setIntento(byte intento) {
         this.intento = intento;
     }
+    
+    //Metodo que valida si los nombre son nulos o no
+    public static byte validation(String nombre1, String nombre2)
+    {
+        if(nombre1.trim().compareToIgnoreCase("") == 0)
+        {       
+            return 0;
+        }
+        if(nombre2.trim().compareToIgnoreCase("") == 0)
+        {       
+            return 1;
+        }
+        if(nombre1.trim().compareToIgnoreCase("") == 0 && nombre2.trim().compareToIgnoreCase("") == 0 )
+        {       
+            return 2;
+        }
+        
+        return 3;
+    }
 
     @Override
     public String toString() {
         return "Player{" + "nombre=" + nombre + ", level=" + level + ", score=" + score + ", intento=" + intento + '}';
     }
-    
-    
-    
 }

@@ -13,6 +13,10 @@ public class Game extends javax.swing.JFrame {
 
     private Player player1;
     private Player player2;
+    short score1, score2;
+    byte intento = 1;
+    byte contador = 1;
+    byte pinos = 10;
     
     public Game(Player player1, Player player2) {
         initComponents();
@@ -20,6 +24,7 @@ public class Game extends javax.swing.JFrame {
         this.player1= player1;
         this.player2=player2;
         llenarNombres();//Metodo para llenar los nombres
+        btnLanza2.setEnabled(false);
     }
 
     /**
@@ -33,6 +38,9 @@ public class Game extends javax.swing.JFrame {
 
         nombre1 = new javax.swing.JLabel();
         nombre2 = new javax.swing.JLabel();
+        derribos = new javax.swing.JLabel();
+        btnLanza1 = new javax.swing.JButton();
+        btnLanza2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,16 +50,43 @@ public class Game extends javax.swing.JFrame {
         nombre2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         nombre2.setText("Nombre 2");
 
+        derribos.setText("jLabel1");
+
+        btnLanza1.setText("¡Lanzar Player 1!");
+        btnLanza1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLanza1ActionPerformed(evt);
+            }
+        });
+
+        btnLanza2.setText("¡Lanzar Player 2!");
+        btnLanza2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLanza2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addComponent(derribos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(nombre1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                .addComponent(nombre2)
-                .addGap(49, 49, 49))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLanza1)
+                        .addGap(70, 70, 70)
+                        .addComponent(btnLanza2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nombre1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addComponent(nombre2)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,11 +95,87 @@ public class Game extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre1)
                     .addComponent(nombre2))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addComponent(derribos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLanza1)
+                    .addComponent(btnLanza2))
+                .addGap(51, 51, 51))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
+
+        if(contador<21)
+        {
+            byte lanzamiento = Random.Azar(pinos);
+        pinos = (byte) (pinos - lanzamiento);
+        System.out.println(lanzamiento);
+        intento++;
+        score1= (short)(score1+lanzamiento);
+        player1.setScore((short)(player1.getScore() + score1));
+        contador++;
+        if(lanzamiento == 10)
+        {
+            derribos.setText("Strike!");
+        }
+        derribos.setText("Derribaste "+lanzamiento+" pinos");
+        if(pinos == 0 && intento == 2)
+        {
+            btnLanza1.setEnabled(false);
+            btnLanza2.setEnabled(true);
+            pinos=10;
+            intento=1;
+        }
+        if(intento==3) 
+        {
+            btnLanza1.setEnabled(false);
+            btnLanza2.setEnabled(true);
+            pinos=10;
+            intento=1;
+        }
+        }
+        
+        btnLanza1.setEnabled(false);
+        btnLanza2.setEnabled(false);
+    }//GEN-LAST:event_btnLanza1ActionPerformed
+
+    private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
+        if(contador<21){
+            byte lanzamiento = Random.Azar(pinos);
+        pinos = (byte) (pinos - lanzamiento);
+        System.out.println(lanzamiento);
+        intento++;
+        score1= (short)(score1+lanzamiento);
+        player1.setScore((short)(player1.getScore() + score1));
+        contador++;
+        if(lanzamiento == 10)
+        {
+            derribos.setText("Strike!");
+        }
+        derribos.setText("Derribaste "+lanzamiento+" pinos");
+        if(pinos == 0 && intento == 2)
+        {
+            btnLanza1.setEnabled(true);
+            btnLanza2.setEnabled(false);
+            pinos=10;
+            intento=1;
+        }
+        if(intento==3) 
+        {
+            btnLanza1.setEnabled(true);
+            btnLanza2.setEnabled(false);
+            pinos=10;
+            intento=1;
+        }
+        }
+        
+            btnLanza1.setEnabled(false);
+            btnLanza2.setEnabled(false);
+    }//GEN-LAST:event_btnLanza2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,6 +183,9 @@ public class Game extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLanza1;
+    private javax.swing.JButton btnLanza2;
+    private javax.swing.JLabel derribos;
     private javax.swing.JLabel nombre1;
     private javax.swing.JLabel nombre2;
     // End of variables declaration//GEN-END:variables
