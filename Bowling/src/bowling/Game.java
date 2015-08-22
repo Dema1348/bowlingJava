@@ -159,7 +159,7 @@ public class Game extends javax.swing.JFrame {
         {
             intento=2;
             pinos = 10;
-            contador=38;
+            contador=36;
         }
         if(intento==3) 
         {
