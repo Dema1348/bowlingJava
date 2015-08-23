@@ -5,6 +5,13 @@
  */
 package bowling;
 
+import com.google.gson.Gson;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+import tabla.Record;
+import tabla.Records;
+
 /**
  *
  * @author LC
@@ -46,6 +53,7 @@ public class Game extends javax.swing.JFrame {
         btnLanza2 = new javax.swing.JButton();
         lblScore1 = new javax.swing.JLabel();
         lblScore2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,14 +85,17 @@ public class Game extends javax.swing.JFrame {
         lblScore2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblScore2.setText("jLabel1");
 
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(derribos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,6 +114,15 @@ public class Game extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblScore2)
                         .addGap(111, 111, 111))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(derribos))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +141,9 @@ public class Game extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLanza1)
                     .addComponent(btnLanza2))
-                .addGap(51, 51, 51))
+                .addGap(17, 17, 17)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
@@ -129,7 +151,7 @@ public class Game extends javax.swing.JFrame {
 
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
 
-            if(contador<40)
+            if(contador<41)
         {
         byte lanzamiento = Random.Azar(pinos);
         pinos = (byte) (pinos - lanzamiento);
@@ -153,14 +175,6 @@ public class Game extends javax.swing.JFrame {
             intento=1;
         }
         
-        //Por reglamento si en el último intento el jugador realiza un strike 
-        //Tiene derecho a volver a tirar
-        if(contador==38 || contador== 37 && lanzamiento == 10)
-        {
-            intento=2;
-            pinos = 10;
-            contador=37;
-        }
         if(intento==3) 
         {
             btnLanza1.setEnabled(false);
@@ -172,11 +186,30 @@ public class Game extends javax.swing.JFrame {
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
+            Records records = new Records();
+            records.ingresar(new Record(player1, new Date()));
+            records.ingresar(new Record(player2, new Date()));
+            Gson gson = new Gson();
+            // convert java object to JSON format,
+            // and returned as JSON formatted string
+            String json = gson.toJson(records);
+            try {
+                    //write converted json data to a file named "file.json"
+                    FileWriter writer = new FileWriter("score.json");
+                    writer.write(json);
+                    writer.close();
+
+            } catch (IOException e) {
+                    e.printStackTrace();
+            }
+            Main main = new Main();
+            main.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnLanza1ActionPerformed
 
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
-            if(contador<40)
+            if(contador<41)
         {
         byte lanzamiento = Random.Azar(pinos);
         pinos = (byte) (pinos - lanzamiento);
@@ -199,15 +232,7 @@ public class Game extends javax.swing.JFrame {
             pinos=10;
             intento=1;
         }
-        
-        //Por reglamento si en el último intento el jugador realiza un strike 
-        //Tiene derecho a volver a tirar
-        if(contador==40 || contador== 39 && lanzamiento == 10)
-        {
-            intento=2;
-            pinos = 10;
-            contador=39;
-        }
+
         if(intento==3) 
         {
             btnLanza1.setEnabled(true);
@@ -219,8 +244,33 @@ public class Game extends javax.swing.JFrame {
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
+            Records records = new Records();
+            records.ingresar(new Record(player1, new Date()));
+            records.ingresar(new Record(player2, new Date()));
+            Gson gson = new Gson();
+        // convert java object to JSON format,
+        // and returned as JSON formatted string
+        String json = gson.toJson(records);
+          try {
+                    //write converted json data to a file named "file.json"
+                    FileWriter writer = new FileWriter("score.json");
+                    writer.write(json);
+                    writer.close();
+
+            } catch (IOException e) {
+                    e.printStackTrace();
+            }
+          Main main = new Main();
+        main.setVisible(true);
+        this.setVisible(false);
         }
     }//GEN-LAST:event_btnLanza2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Main main = new Main();
+        main.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,6 +281,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton btnLanza1;
     private javax.swing.JButton btnLanza2;
     private javax.swing.JLabel derribos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblScore1;
     private javax.swing.JLabel lblScore2;
     private javax.swing.JLabel nombre1;
