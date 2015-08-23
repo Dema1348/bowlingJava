@@ -37,6 +37,7 @@ public class Puntajes extends javax.swing.JFrame {
     /**
      * Creates new form Puntajes
      */
+    
     public Puntajes() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -202,7 +203,7 @@ public class Puntajes extends javax.swing.JFrame {
 		writer.close();
 
 	} catch (IOException e) {
-		text.setText("A ocurrido un error de escritura al crear el archivo");
+		text.setText("Ha ocurrido un error de escritura al crear el archivo");
 	}
 
     }

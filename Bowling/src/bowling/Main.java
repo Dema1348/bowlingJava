@@ -5,6 +5,8 @@
  */
 package bowling;
 
+import tabla.Records;
+
 /**
  *
  * @author LC
@@ -14,6 +16,8 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    
+    private Records records;
     public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
