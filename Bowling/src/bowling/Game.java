@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +35,30 @@ public class Game extends javax.swing.JFrame {
     byte contador = 0;
     byte pinos = 10;
     String msg= "Puntuacion: ";
+    //Todos los pinos parten es estado activo , 
+    //estas variables se ocupan para saber si el pino ya fue botado en la misma tirada
+    boolean estado1=true;
+    boolean estado2=true;
+    boolean estado3=true;
+    boolean estado4=true;
+    boolean estado5=true;
+    boolean estado6=true;
+    boolean estado7=true;
+    boolean estado8=true;
+    boolean estado9=true;
+    boolean estado10=true;
+    boolean estado11=true;
+    boolean estado12=true;
+    boolean estado13=true;
+    boolean estado14=true;
+    boolean estado15=true;
+    boolean estado16=true;
+    boolean estado17=true;
+    boolean estado18=true;
+    boolean estado19=true;
+    boolean estado20=true;
+   
+   
     
     public Game(Player player1, Player player2) {
         initComponents();
@@ -45,6 +70,7 @@ public class Game extends javax.swing.JFrame {
         llenarNombres();//Metodo para llenar los nombres
         btnLanza2.setEnabled(false);
         pintarPinos();
+        pintarPinos2();
     }
 
     /**
@@ -75,6 +101,17 @@ public class Game extends javax.swing.JFrame {
         pino2 = new javax.swing.JRadioButton();
         pino5 = new javax.swing.JRadioButton();
         pino1 = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        pino11 = new javax.swing.JRadioButton();
+        pino12 = new javax.swing.JRadioButton();
+        pino13 = new javax.swing.JRadioButton();
+        pino14 = new javax.swing.JRadioButton();
+        pino15 = new javax.swing.JRadioButton();
+        pino16 = new javax.swing.JRadioButton();
+        pino17 = new javax.swing.JRadioButton();
+        pino18 = new javax.swing.JRadioButton();
+        pino19 = new javax.swing.JRadioButton();
+        pino20 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,7 +217,7 @@ public class Game extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(pino7)
@@ -213,7 +250,7 @@ public class Game extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -236,6 +273,129 @@ public class Game extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.setEnabled(false);
+
+        pino11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino11ActionPerformed(evt);
+            }
+        });
+
+        pino12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino12ActionPerformed(evt);
+            }
+        });
+
+        pino13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino13ActionPerformed(evt);
+            }
+        });
+
+        pino14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino14ActionPerformed(evt);
+            }
+        });
+
+        pino15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino15ActionPerformed(evt);
+            }
+        });
+
+        pino16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino16ActionPerformed(evt);
+            }
+        });
+
+        pino17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino17ActionPerformed(evt);
+            }
+        });
+
+        pino18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino18ActionPerformed(evt);
+            }
+        });
+
+        pino19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino19ActionPerformed(evt);
+            }
+        });
+
+        pino20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino20ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(pino15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pino12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pino14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pino17))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(pino16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pino19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pino13))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(pino18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pino11))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(pino20)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pino12)
+                                    .addComponent(pino14)
+                                    .addComponent(pino17)
+                                    .addComponent(pino15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(pino16)
+                                    .addComponent(pino19)))
+                            .addComponent(pino13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pino18))
+                    .addComponent(pino11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pino20)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -244,38 +404,32 @@ public class Game extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLanza1)
-                                .addGap(103, 103, 103)
-                                .addComponent(btnLanza2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(derribos)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nombre1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblScore1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(123, 123, 123)
-                                        .addComponent(jButton1)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(41, 41, 41)))
+                            .addComponent(nombre1)
+                            .addComponent(lblScore1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblScore2)
                             .addComponent(nombre2))
-                        .addGap(39, 39, 39))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLanza1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLanza2)))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(derribos)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,17 +442,19 @@ public class Game extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblScore1)
                     .addComponent(lblScore2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(derribos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLanza1)
                     .addComponent(btnLanza2))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -306,9 +462,13 @@ public class Game extends javax.swing.JFrame {
 
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
 
-            if(contador<39)
+         pintarPinos2();
+        if(contador<39)
         {
+           
+            
         byte lanzamiento = Random.Azar(pinos);
+        botarPino(lanzamiento);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score1= (short)(score1+lanzamiento);
@@ -320,7 +480,7 @@ public class Game extends javax.swing.JFrame {
         {
             derribos.setText("Strike!");
         }
-        pino7.setSelected(false);
+        
         derribos.setText("Jugador 1: derribaste "+lanzamiento+" pinos");
         if(pinos == 0 && intento == 2)
         {
@@ -328,19 +488,29 @@ public class Game extends javax.swing.JFrame {
             btnLanza2.setEnabled(true);
             pinos=10;
             intento=1;
+            
+            resetPinos();
+            
         }
         
         if(intento==3) 
         {
+            
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(true);
             pinos=10;
             intento=1;
+          
+            resetPinos();
+           
+            
         }
+        
         }else
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
+            
             
             Save();
             
@@ -352,9 +522,14 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLanza1ActionPerformed
         
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
-            if(contador<=38)
+        pintarPinos();
+        if(contador<=38)
         {
+            
+            
+        
         byte lanzamiento = Random.Azar(pinos);
+        botarPino2(lanzamiento);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score2= (short)(score2+lanzamiento);
@@ -374,30 +549,39 @@ public class Game extends javax.swing.JFrame {
             btnLanza2.setEnabled(false);
             pinos=10;
             intento=1;
+            
+            resetPinos2();
+            
         }
 
         if(intento==3 && contador < 40) 
         {
+           
             btnLanza1.setEnabled(true);
             btnLanza2.setEnabled(false);
             pinos=10;
             intento=1;
-        }else 
-        {
-            Save();
+          
+            resetPinos2();
+           
+            
         }
+        
+        
         }else
+        
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
-            Gson gson = new Gson();
+            
+            
             Save();
-                
+            
                 JOptionPane.showMessageDialog(null, "Gracias por jugar");
-          Main main = new Main();
-        main.setVisible(true);
-        this.setVisible(false);
-        }
+                Main main = new Main();
+                main.setVisible(true);
+                this.setVisible(false);
+            }
     }//GEN-LAST:event_btnLanza2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -446,6 +630,46 @@ public class Game extends javax.swing.JFrame {
         pino8.setSelected(!pino8.isSelected());
     }//GEN-LAST:event_pino8ActionPerformed
 
+    private void pino11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino11ActionPerformed
+         pino11.setSelected(!pino11.isSelected());
+    }//GEN-LAST:event_pino11ActionPerformed
+
+    private void pino12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino12ActionPerformed
+         pino12.setSelected(!pino12.isSelected());
+    }//GEN-LAST:event_pino12ActionPerformed
+
+    private void pino13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino13ActionPerformed
+         pino13.setSelected(!pino13.isSelected());
+    }//GEN-LAST:event_pino13ActionPerformed
+
+    private void pino14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino14ActionPerformed
+         pino14.setSelected(!pino14.isSelected());
+    }//GEN-LAST:event_pino14ActionPerformed
+
+    private void pino15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino15ActionPerformed
+         pino15.setSelected(!pino15.isSelected());
+    }//GEN-LAST:event_pino15ActionPerformed
+
+    private void pino16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino16ActionPerformed
+         pino16.setSelected(!pino16.isSelected());
+    }//GEN-LAST:event_pino16ActionPerformed
+
+    private void pino17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino17ActionPerformed
+         pino17.setSelected(!pino17.isSelected());
+    }//GEN-LAST:event_pino17ActionPerformed
+
+    private void pino18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino18ActionPerformed
+         pino18.setSelected(!pino18.isSelected());
+    }//GEN-LAST:event_pino18ActionPerformed
+
+    private void pino19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino19ActionPerformed
+         pino19.setSelected(!pino19.isSelected());
+    }//GEN-LAST:event_pino19ActionPerformed
+
+    private void pino20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino20ActionPerformed
+         pino20.setSelected(!pino20.isSelected());
+    }//GEN-LAST:event_pino20ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,13 +681,24 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLabel derribos;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblScore1;
     private javax.swing.JLabel lblScore2;
     private javax.swing.JLabel nombre1;
     private javax.swing.JLabel nombre2;
     private javax.swing.JRadioButton pino1;
     private javax.swing.JRadioButton pino10;
+    private javax.swing.JRadioButton pino11;
+    private javax.swing.JRadioButton pino12;
+    private javax.swing.JRadioButton pino13;
+    private javax.swing.JRadioButton pino14;
+    private javax.swing.JRadioButton pino15;
+    private javax.swing.JRadioButton pino16;
+    private javax.swing.JRadioButton pino17;
+    private javax.swing.JRadioButton pino18;
+    private javax.swing.JRadioButton pino19;
     private javax.swing.JRadioButton pino2;
+    private javax.swing.JRadioButton pino20;
     private javax.swing.JRadioButton pino3;
     private javax.swing.JRadioButton pino4;
     private javax.swing.JRadioButton pino5;
@@ -552,5 +787,207 @@ public class Game extends javax.swing.JFrame {
         pino8.setSelected(true);
         pino9.setSelected(true);
         pino10.setSelected(true);
+    }
+    
+     private void pintarPinos2() {
+       
+        pino11.setSelected(true);
+        pino12.setSelected(true);
+        pino13.setSelected(true);
+        pino14.setSelected(true);
+        pino15.setSelected(true);
+        pino16.setSelected(true);
+        pino17.setSelected(true);
+        pino18.setSelected(true);
+        pino19.setSelected(true);
+        pino20.setSelected(true);
+    }
+
+    private void botarPino(byte cantidad) {
+       
+        for (int i = 0; i < cantidad; i++) {
+            switch(Random.Azar((byte)10)){
+                case 0:
+                    pino1.setSelected(false);
+                    if(estado1)
+                        estado1=false;
+                    else
+                        i--;
+                    break;
+                case 1:
+                    pino2.setSelected(false);
+                    if(estado2)
+                        estado2=false;
+                    else
+                        i--;
+                    break;
+                case 2:
+                    pino3.setSelected(false);
+                    if(estado3)
+                        estado3=false;
+                    else
+                        i--;
+                    break;
+                case 3:
+                    pino4.setSelected(false);
+                    if(estado4)
+                        estado4=false;
+                    else
+                        i--;
+                    break;
+                case 4:
+                    pino5.setSelected(false);
+                    if(estado5)
+                        estado5=false;
+                    else
+                        i--;
+                    break;
+                case 5:
+                    pino6.setSelected(false);
+                    if(estado6)
+                        estado6=false;
+                    else
+                        i--;
+                    break;
+                case 6:
+                    pino7.setSelected(false);
+                    if(estado7)
+                        estado7=false;
+                    else
+                        i--;
+                    break;
+                case 7:
+                    pino8.setSelected(false);
+                    if(estado8)
+                        estado8=false;
+                    else
+                        i--;
+                    break;
+                case 8:
+                    pino9.setSelected(false);
+                    if(estado9)
+                        estado9=false;
+                    else
+                        i--;
+                    break;
+                case 9:
+                    pino10.setSelected(false);
+                    if(estado10)
+                        estado10=false;
+                    else
+                        i--;
+                    break;
+                
+            
+            }
+        }
+       
+    }
+    
+    private void botarPino2(byte cantidad) {
+       
+        for (int i = 0; i < cantidad; i++) {
+            switch(Random.Azar((byte)10)){
+                case 0:
+                    pino11.setSelected(false);
+                    if(estado11)
+                        estado11=false;
+                    else
+                        i--;
+                    break;
+                case 1:
+                    pino12.setSelected(false);
+                    if(estado12)
+                        estado12=false;
+                    else
+                        i--;
+                    break;
+                case 2:
+                    pino13.setSelected(false);
+                    if(estado13)
+                        estado13=false;
+                    else
+                        i--;
+                    break;
+                case 3:
+                    pino14.setSelected(false);
+                    if(estado14)
+                        estado14=false;
+                    else
+                        i--;
+                    break;
+                case 4:
+                    pino15.setSelected(false);
+                    if(estado15)
+                        estado15=false;
+                    else
+                        i--;
+                    break;
+                case 5:
+                    pino16.setSelected(false);
+                    if(estado16)
+                        estado16=false;
+                    else
+                        i--;
+                    break;
+                case 6:
+                    pino17.setSelected(false);
+                    if(estado17)
+                        estado17=false;
+                    else
+                        i--;
+                    break;
+                case 7:
+                    pino18.setSelected(false);
+                    if(estado18)
+                        estado18=false;
+                    else
+                        i--;
+                    break;
+                case 8:
+                    pino19.setSelected(false);
+                    if(estado19)
+                        estado19=false;
+                    else
+                        i--;
+                    break;
+                case 9:
+                    pino20.setSelected(false);
+                    if(estado20)
+                        estado20=false;
+                    else
+                        i--;
+                    break;
+                
+            
+            }
+        }
+       
+    }
+
+    private void resetPinos() {
+        estado1=true;
+        estado2=true;
+        estado3=true;
+        estado4=true;
+        estado5=true;
+        estado6=true;
+        estado7=true;
+        estado8=true;
+        estado9=true;
+        estado10=true;
+    }
+    
+     private void resetPinos2() {
+        estado11=true;
+        estado12=true;
+        estado13=true;
+        estado14=true;
+        estado15=true;
+        estado16=true;
+        estado17=true;
+        estado18=true;
+        estado19=true;
+        estado20=true;
     }
 }
