@@ -6,9 +6,16 @@
 package bowling;
 
 import com.google.gson.Gson;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import tabla.Record;
 import tabla.Records;
 
@@ -186,28 +193,16 @@ public class Game extends javax.swing.JFrame {
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
-            Records records = new Records();
-            records.ingresar(new Record(player1, new Date()));
-            records.ingresar(new Record(player2, new Date()));
-            Gson gson = new Gson();
-            // convert java object to JSON format,
-            // and returned as JSON formatted string
-            String json = gson.toJson(records);
-            try {
-                    //write converted json data to a file named "file.json"
-                    FileWriter writer = new FileWriter("score.json");
-                    writer.write(json);
-                    writer.close();
-
-            } catch (IOException e) {
-                    e.printStackTrace();
+            
+            Save();
+            
+                JOptionPane.showMessageDialog(null, "Gracias por jugar");
+                Main main = new Main();
+                main.setVisible(true);
+                this.setVisible(false);
             }
-            Main main = new Main();
-            main.setVisible(true);
-            this.setVisible(false);
-        }
     }//GEN-LAST:event_btnLanza1ActionPerformed
-
+        
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
             if(contador<41)
         {
@@ -244,22 +239,10 @@ public class Game extends javax.swing.JFrame {
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
-            Records records = new Records();
-            records.ingresar(new Record(player1, new Date()));
-            records.ingresar(new Record(player2, new Date()));
             Gson gson = new Gson();
-        // convert java object to JSON format,
-        // and returned as JSON formatted string
-        String json = gson.toJson(records);
-          try {
-                    //write converted json data to a file named "file.json"
-                    FileWriter writer = new FileWriter("score.json");
-                    writer.write(json);
-                    writer.close();
-
-            } catch (IOException e) {
-                    e.printStackTrace();
-            }
+            Save();
+                
+                JOptionPane.showMessageDialog(null, "Gracias por jugar");
           Main main = new Main();
         main.setVisible(true);
         this.setVisible(false);
@@ -292,5 +275,64 @@ public class Game extends javax.swing.JFrame {
         //Obtenemos ambos nombres de los jugadores y los ponemos en los 
         nombre1.setText(player1.getNombre());
         nombre2.setText(player2.getNombre());
+    }
+
+    private void CrearArchivo() {
+         Gson gson = new Gson();
+        Records records= new Records();
+	String json = gson.toJson(records);
+
+	try {
+		//se escribe el archivo json vacio con la estructura correspondiente "score.json"
+		FileWriter writer = new FileWriter("score.json");
+		writer.write(json);
+		writer.close();
+
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+    }
+
+    private void Save() {
+        Gson gson = new Gson();
+                try {
+                    //Se lee el archivo json que contiene los records
+                    BufferedReader br = new BufferedReader(new FileReader("score.json"));
+                    //El archivo json se combierte en un objeto
+                    Records records = gson.fromJson(br, Records.class);
+                    records.ingresar(new Record(player1, new Date()));
+                    records.ingresar(new Record(player2, new Date()));
+                    Collections.sort(records.getRecords(), new Comparator() {
+                        //Sobre-escribimos el motodo compare para indicar cual es la variable que queremos comparar para ordenar la lista
+                        @Override
+                        public int compare(Object o1, Object o2) {
+                            
+                            return new Short(((Record)o2).getPlayer().getScore()).compareTo(((Record)o1).getPlayer().getScore());
+                        }
+                    });
+                   
+                    //Grabamos los record nuevos
+                    String json = gson.toJson(records);
+                    try {
+                              //write converted json data to a file named "file.json"
+                              FileWriter writer = new FileWriter("score.json");
+                              writer.write(json);
+                              writer.close();
+                              
+
+                      } catch (IOException e) {
+                            
+                              e.printStackTrace();
+                      }
+
+            } catch (IOException e) {
+                CrearArchivo();//funcion para crear el archivo de scores en caso que no exista
+                Save();
+             
+
+            }
+           catch (Exception e) {
+                 e.printStackTrace();
+            }
     }
 }

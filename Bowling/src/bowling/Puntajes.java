@@ -11,19 +11,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import com.google.gson.Gson;
-import java.awt.List;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import javax.swing.RowSorter;
-import javax.swing.RowSorter.SortKey;
-import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import tabla.Record;
 
 
@@ -41,7 +32,6 @@ public class Puntajes extends javax.swing.JFrame {
     public Puntajes() {
         initComponents();
         this.setLocationRelativeTo(null);
-        llenarTabla();//funcion temporal simular el llenado de  la tabla
         CargaDatos();//funcion para cargar los maximos scores del juego
         
     }
@@ -207,29 +197,6 @@ public class Puntajes extends javax.swing.JFrame {
 	}
 
     }
-
-    private void llenarTabla() {
-        Records records= new Records();
-        records.ingresar(new Record(new Player("juan",(short)21), new Date()));
-        records.ingresar(new Record(new Player("Pedro",(short)90), new Date()));
-        records.ingresar(new Record(new Player("Diego",(short)65), new Date()));
-        records.ingresar(new Record(new Player("Maria",(short)20), new Date()));
-        records.ingresar(new Record(new Player("Rocio",(short)140), new Date()));
-        records.ingresar(new Record(new Player("Masaña",(short)0), new Date()));
-        Gson gson = new Gson();
-        // convert java object to JSON format,
-        // and returned as JSON formatted string
-        String json = gson.toJson(records);
-          try {
-                    //write converted json data to a file named "file.json"
-                    FileWriter writer = new FileWriter("score.json");
-                    writer.write(json);
-                    writer.close();
-
-            } catch (IOException e) {
-                    e.printStackTrace();
-            }
-        }
 
    
     
