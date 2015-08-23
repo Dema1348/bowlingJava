@@ -8,6 +8,7 @@ package bowling;
 import com.google.gson.Gson;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import tabla.Records;
 
 /**
@@ -117,9 +118,10 @@ public class Options extends javax.swing.JFrame {
 		FileWriter writer = new FileWriter("score.json");
 		writer.write(json);
 		writer.close();
+                JOptionPane.showMessageDialog(null, "Se han borrado todos los records del sistema");
 
 	} catch (IOException e) {
-		e.printStackTrace();
+		 JOptionPane.showMessageDialog(null, "A ocurrido un error al borrar  los records del sistema");
 	}
 
     
