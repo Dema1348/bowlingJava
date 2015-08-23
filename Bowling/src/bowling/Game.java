@@ -158,13 +158,12 @@ public class Game extends javax.swing.JFrame {
 
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
 
-            if(contador<41)
+            if(contador<39)
         {
         byte lanzamiento = Random.Azar(pinos);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score1= (short)(score1+lanzamiento);
-        player1.setScore((short)(player1.getScore() + score1));
         contador++;
         lblScore1.setText(msg+score1);
 
@@ -204,13 +203,13 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLanza1ActionPerformed
         
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
-            if(contador<41)
+            if(contador<=38)
         {
         byte lanzamiento = Random.Azar(pinos);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score2= (short)(score2+lanzamiento);
-        player2.setScore((short)(player2.getScore() + score2));
+        //player2.setScore((short)(player2.getScore() + score2));
         contador++;
         lblScore2.setText(msg+score2);
 
@@ -228,12 +227,15 @@ public class Game extends javax.swing.JFrame {
             intento=1;
         }
 
-        if(intento==3) 
+        if(intento==3 && contador < 40) 
         {
             btnLanza1.setEnabled(true);
             btnLanza2.setEnabled(false);
             pinos=10;
             intento=1;
+        }else 
+        {
+            Save();
         }
         }else
         {
@@ -294,6 +296,8 @@ public class Game extends javax.swing.JFrame {
     }
 
     private void Save() {
+        player1.setScore((short)(score1));
+        player2.setScore((short)(score2));
         Gson gson = new Gson();
                 try {
                     //Se lee el archivo json que contiene los records
