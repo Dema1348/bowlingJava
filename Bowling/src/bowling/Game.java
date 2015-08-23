@@ -593,14 +593,17 @@ public class Game extends javax.swing.JFrame {
         
         else
              JOptionPane.showMessageDialog(null, "¡¡Ha ocurrido un empate!!..Gracias por jugar.");
+        
         Gson gson = new Gson();
                 try {
                     //Se lee el archivo json que contiene los records
                     BufferedReader br = new BufferedReader(new FileReader("score.json"));
                     //El archivo json se combierte en un objeto
                     Records records = gson.fromJson(br, Records.class);
-                    records.ingresar(new Record(player1, new Date()));
-                    records.ingresar(new Record(player2, new Date()));
+                    Record record1= new Record(player1, new Date());
+                    Record record2= new Record(player2, new Date());
+                    records.ingresar(record1);
+                    records.ingresar(record2);
                     Collections.sort(records.getRecords(), new Comparator() {
                         //Sobre-escribimos el motodo compare para indicar cual es la variable que queremos comparar para ordenar la lista
                         @Override
@@ -609,7 +612,29 @@ public class Game extends javax.swing.JFrame {
                             return new Short(((Record)o2).getPlayer().getScore()).compareTo(((Record)o1).getPlayer().getScore());
                         }
                     });
-                   
+                    //Revision de puntajes solo para los 3 primeros lugares, en caso de suceder se le avisa al jugador
+                    byte i=1;
+                    for (Record rec : records.getRecords()) {
+                        if(rec.equals(record1) && i==1)
+                            JOptionPane.showMessageDialog(null, "¡¡felicidades!!.."+player1.getNombre()+" ha obtenido el primer lugar en la tabla de puntajes.");
+                        
+                        if(rec.equals(record2) && i==1)
+                           JOptionPane.showMessageDialog(null, "¡¡felicidades!!.."+player2.getNombre()+" ha obtenido el primer lugar en la tabla de puntajes.");
+                        
+                        if(rec.equals(record1) && i==2)
+                            JOptionPane.showMessageDialog(null, "¡¡felicidades!!.."+player1.getNombre()+" ha obtenido el segundo lugar en la tabla de puntajes.");
+                        
+                        if(rec.equals(record2) && i==2)
+                           JOptionPane.showMessageDialog(null, "¡¡felicidades!!.."+player2.getNombre()+" ha obtenido el segundo lugar en la tabla de puntajes.");
+                        
+                        if(rec.equals(record1) && i==3)
+                            JOptionPane.showMessageDialog(null, "¡¡felicidades!!.."+player1.getNombre()+" ha obtenido el tercer lugar en la tabla de puntajes.");
+                        
+                        if(rec.equals(record2) && i==3)
+                           JOptionPane.showMessageDialog(null, "¡¡felicidades!!.."+player2.getNombre()+" ha obtenido el tercer lugar en la tabla de puntajes.");
+                        
+                        i++;
+                    }
                     //Grabamos los record nuevos
                     String json = gson.toJson(records);
                     try {
