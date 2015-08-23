@@ -514,7 +514,7 @@ public class Game extends javax.swing.JFrame {
             
             Save();
             
-                JOptionPane.showMessageDialog(null, "Gracias por jugar");
+               
                 Main main = new Main();
                 main.setVisible(true);
                 this.setVisible(false);
@@ -576,8 +576,8 @@ public class Game extends javax.swing.JFrame {
             
             
             Save();
-            
-                JOptionPane.showMessageDialog(null, "Gracias por jugar");
+                
+                
                 Main main = new Main();
                 main.setVisible(true);
                 this.setVisible(false);
@@ -733,6 +733,14 @@ public class Game extends javax.swing.JFrame {
     private void Save() {
         player1.setScore((short)(score1));
         player2.setScore((short)(score2));
+        if(player1.getScore()>player2.getScore())
+        JOptionPane.showMessageDialog(null, "¡¡Ganador player 1!!..Gracias por jugar.");
+        
+        else if(player1.getScore()<player2.getScore())
+             JOptionPane.showMessageDialog(null, "¡¡Ganador player 2!!..Gracias por jugar.");
+        
+        else
+             JOptionPane.showMessageDialog(null, "¡¡Ha ocurrido un empate!!..Gracias por jugar.");
         Gson gson = new Gson();
                 try {
                     //Se lee el archivo json que contiene los records
