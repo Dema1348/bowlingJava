@@ -90,38 +90,44 @@ public class Game extends javax.swing.JFrame {
         lblScore1 = new javax.swing.JLabel();
         lblScore2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        pino3 = new javax.swing.JRadioButton();
-        pino8 = new javax.swing.JRadioButton();
-        pino6 = new javax.swing.JRadioButton();
-        pino9 = new javax.swing.JRadioButton();
         pino7 = new javax.swing.JRadioButton();
-        pino4 = new javax.swing.JRadioButton();
+        pino8 = new javax.swing.JRadioButton();
+        pino9 = new javax.swing.JRadioButton();
         pino10 = new javax.swing.JRadioButton();
-        pino2 = new javax.swing.JRadioButton();
-        pino5 = new javax.swing.JRadioButton();
-        pino1 = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
         pino11 = new javax.swing.JRadioButton();
-        pino12 = new javax.swing.JRadioButton();
-        pino13 = new javax.swing.JRadioButton();
-        pino14 = new javax.swing.JRadioButton();
         pino15 = new javax.swing.JRadioButton();
+        pino14 = new javax.swing.JRadioButton();
+        pino13 = new javax.swing.JRadioButton();
+        pino12 = new javax.swing.JRadioButton();
         pino16 = new javax.swing.JRadioButton();
         pino17 = new javax.swing.JRadioButton();
         pino18 = new javax.swing.JRadioButton();
-        pino19 = new javax.swing.JRadioButton();
         pino20 = new javax.swing.JRadioButton();
+        pino19 = new javax.swing.JRadioButton();
+        pino3 = new javax.swing.JRadioButton();
+        pino4 = new javax.swing.JRadioButton();
+        pino2 = new javax.swing.JRadioButton();
+        pino6 = new javax.swing.JRadioButton();
+        pino5 = new javax.swing.JRadioButton();
+        pino1 = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         nombre1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         nombre1.setText("Nombre 1");
+        getContentPane().add(nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
 
         nombre2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         nombre2.setText("Nombre 2");
+        getContentPane().add(nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, -1, -1));
 
-        derribos.setText("Por favor tire el dado. ");
+        derribos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        derribos.setText("Por favor lance la bola...");
+        getContentPane().add(derribos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 250, -1));
 
         btnLanza1.setText("¡Lanzar Player 1!");
         btnLanza1.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +135,7 @@ public class Game extends javax.swing.JFrame {
                 btnLanza1ActionPerformed(evt);
             }
         });
+        getContentPane().add(btnLanza1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
 
         btnLanza2.setText("¡Lanzar Player 2!");
         btnLanza2.addActionListener(new java.awt.event.ActionListener() {
@@ -136,12 +143,15 @@ public class Game extends javax.swing.JFrame {
                 btnLanza2ActionPerformed(evt);
             }
         });
+        getContentPane().add(btnLanza2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, -1, -1));
 
         lblScore1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblScore1.setText("jLabel1");
+        getContentPane().add(lblScore1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
 
         lblScore2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblScore2.setText("jLabel1");
+        getContentPane().add(lblScore2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -149,313 +159,155 @@ public class Game extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jPanel1.setEnabled(false);
-
-        pino3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino3ActionPerformed(evt);
-            }
-        });
-
-        pino8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino8ActionPerformed(evt);
-            }
-        });
-
-        pino6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino6ActionPerformed(evt);
-            }
-        });
-
-        pino9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino9ActionPerformed(evt);
-            }
-        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, -1, -1));
 
         pino7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino7ActionPerformed(evt);
             }
         });
+        getContentPane().add(pino7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
 
-        pino4.addActionListener(new java.awt.event.ActionListener() {
+        pino8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino4ActionPerformed(evt);
+                pino8ActionPerformed(evt);
             }
         });
+        getContentPane().add(pino8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
+
+        pino9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, -1, -1));
 
         pino10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino10ActionPerformed(evt);
             }
         });
-
-        pino2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino2ActionPerformed(evt);
-            }
-        });
-
-        pino5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino5ActionPerformed(evt);
-            }
-        });
-
-        pino1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(pino7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pino8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pino9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pino10))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(pino4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pino5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pino6))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(pino2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pino3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(pino1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pino8)
-                                    .addComponent(pino9)
-                                    .addComponent(pino10)
-                                    .addComponent(pino7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pino4)
-                                    .addComponent(pino5)))
-                            .addComponent(pino6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pino2))
-                    .addComponent(pino3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pino1)
-                .addContainerGap())
-        );
-
-        jPanel2.setEnabled(false);
+        getContentPane().add(pino10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
 
         pino11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino11ActionPerformed(evt);
             }
         });
-
-        pino12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino12ActionPerformed(evt);
-            }
-        });
-
-        pino13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino13ActionPerformed(evt);
-            }
-        });
-
-        pino14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino14ActionPerformed(evt);
-            }
-        });
+        getContentPane().add(pino11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 220, -1, -1));
 
         pino15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino15ActionPerformed(evt);
             }
         });
+        getContentPane().add(pino15, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, -1, -1));
+
+        pino14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino14ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, -1));
+
+        pino13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino13ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino13, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, -1, -1));
+
+        pino12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino12ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino12, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, -1, -1));
 
         pino16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino16ActionPerformed(evt);
             }
         });
+        getContentPane().add(pino16, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
 
         pino17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino17ActionPerformed(evt);
             }
         });
+        getContentPane().add(pino17, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, -1));
 
         pino18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino18ActionPerformed(evt);
             }
         });
-
-        pino19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pino19ActionPerformed(evt);
-            }
-        });
+        getContentPane().add(pino18, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, -1, -1));
 
         pino20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pino20ActionPerformed(evt);
             }
         });
+        getContentPane().add(pino20, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(pino15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pino12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pino14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pino17))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(pino16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pino19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pino13))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(pino18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pino11))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(pino20)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pino12)
-                                    .addComponent(pino14)
-                                    .addComponent(pino17)
-                                    .addComponent(pino15))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pino16)
-                                    .addComponent(pino19)))
-                            .addComponent(pino13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pino18))
-                    .addComponent(pino11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pino20)
-                .addContainerGap())
-        );
+        pino19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino19ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino19, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombre1)
-                            .addComponent(lblScore1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblScore2)
-                            .addComponent(nombre2))
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLanza1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLanza2)))
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(derribos)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombre1)
-                    .addComponent(nombre2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblScore1)
-                    .addComponent(lblScore2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(derribos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLanza1)
-                    .addComponent(btnLanza2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(17, 17, 17))
-        );
+        pino3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
+
+        pino4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
+
+        pino2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 20, -1));
+
+        pino6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
+
+        pino5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, -1, -1));
+
+        pino1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pino1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pino1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Javanese Text", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(125, 30, 1));
+        jLabel1.setText("Jugando");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, -1, 20));
+
+        img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Plantilla.jpg"))); // NOI18N
+        getContentPane().add(img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -679,9 +531,9 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton btnLanza1;
     private javax.swing.JButton btnLanza2;
     private javax.swing.JLabel derribos;
+    private javax.swing.JLabel img;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblScore1;
     private javax.swing.JLabel lblScore2;
     private javax.swing.JLabel nombre1;
