@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.io.FileWriter;
+import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
@@ -49,11 +50,17 @@ public class Puntajes extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnVolver = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        text.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        text.setFont(new java.awt.Font("Javanese Text", 0, 18)); // NOI18N
+        text.setForeground(new java.awt.Color(204, 0, 0));
         text.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(text, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 530, 80));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,6 +72,8 @@ public class Puntajes extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 173, 530, 130));
+
         btnVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -72,38 +81,15 @@ public class Puntajes extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnVolver)))
-                        .addGap(0, 3, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(btnVolver)
-                .addContainerGap())
-        );
+        jLabel1.setFont(new java.awt.Font("Javanese Text", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(125, 30, 1));
+        jLabel1.setText("Puntajes");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, -1, 20));
+
+        img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Plantilla.jpg"))); // NOI18N
+        getContentPane().add(img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,15 +130,17 @@ public class Puntajes extends javax.swing.JFrame {
                     model.addColumn("Nombre");
                     model.addColumn("Puntaje");
                     model.addColumn("Fecha");
-                    
+            
+                    DateFormat df =  DateFormat.getDateInstance();
+
                     for (int i = 0; i < records.getRecords().size(); i++) {
-                        model.addRow(new Object[]{"N°"+(i+1),records.getRecords().get(i).getPlayer().getNombre(), Short.toString(records.getRecords().get(i).getPlayer().getScore()), records.getRecords().get(i).getFecha().toString()});
+                        model.addRow(new Object[]{"N°"+(i+1),records.getRecords().get(i).getPlayer().getNombre(), Short.toString(records.getRecords().get(i).getPlayer().getScore()), df.format(records.getRecords().get(i).getFecha())});
                     }
                     
                     
                     jTable2.setModel(model);
                     jTable2.setEnabled(false);
-                    text.setText("Estos son los puntajes encontrados en el sistema");
+                   
 
                 }
                 
@@ -161,11 +149,11 @@ public class Puntajes extends javax.swing.JFrame {
 
 	} catch (IOException e) {
             CrearArchivo();//funcion para crear el archivo de scores en caso que no exista
-            text.setText("El sistema no regristra ningun record, juega para ser el primero");
+            text.setText("El sistema no regristra ningun record, juega para ser el primero.");
             
 	}
        catch (Exception e) {
-            text.setText("A ocurrido un error al cargar los scores registrados en el sistema");
+            text.setText("A ocurrido un error al cargar los scores registrados en el sistema.");
 	}
     }
 
@@ -176,6 +164,8 @@ public class Puntajes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel img;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel text;
