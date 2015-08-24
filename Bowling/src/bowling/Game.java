@@ -25,15 +25,22 @@ import tabla.Records;
  * @author LC
  */
 public class Game extends javax.swing.JFrame {
-
+    
+    //Jugadores 
     private Player player1;
     private Player player2;
+    //Puntuación de cada jugador
     short score1, score2;
+    //Intento por cada turno (cada turno se compone de dos intentos)
     byte intento = 1;
+    //Contador que permite ir llevando la cuenta 
+    //contador%2 != 0 inicio de turno para el jugador siguiente 
     byte contador = 0;
     byte pinos = 10;
+    //Permite llevar la cuenta de pinos en caso de Strike o Spare en métoto 
+    //llenarScore()
     int pinoAuxiliar1=0, pinoAuxiliar2=0;
-    boolean isPlaying2=false;
+    //Define en que turno está jugando cada jugador
     byte turnoplayer1=1;
     byte turnoplayer2=1;
     String msg= "Puntuacion: ";
@@ -60,20 +67,20 @@ public class Game extends javax.swing.JFrame {
     boolean estado19=true;
     boolean estado20=true;
     Object [] fila1=new Object[10]; 
-    Object [][] data = {{1,2,3,4,5,6,7,8,9,38}, {1,2,3,4,5,6,7,8,9,38}};
-   
-   
-    
+
+    //Inicialización de Pantalla Game
     public Game(Player player1, Player player2) {
         initComponents();
         this.setLocationRelativeTo(null);
-        crearTabla();
+        crearTabla();//Método que crea tabla vacia
         lblScore1.setText(msg);
         lblScore2.setText(msg);
         this.player1= player1;
         this.player2=player2;
         llenarNombres();//Metodo para llenar los nombres
+        //Comienza desactivado el botón del jugador 2, ya que es el segundo en lanzar
         btnLanza2.setEnabled(false);
+        //Se dejan todos "parados"
         pintarPinos();
         pintarPinos2();
     }
@@ -350,21 +357,32 @@ public class Game extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
-            
+        //Muestra los pinos que han sido derribados y los que no
         pintarPinos2();
+        //Si aun no es su último turno
         if(contador<39)
         {
-            System.out.println(pinoAuxiliar1);
+        //Variable en la que se almacenara el valor del lanzamiento
         int lanzamiento;
+        //Se realiza esta pregunta para que el numero del lanzamiento no sea mayor 
+        //a la cantidad de pinos restantes
         if(intento==1)
             lanzamiento= Random.AzarJ(pinos,(byte)9);
         else
             lanzamiento = Random.Azar(pinos);
+        //Metodo que permite "botar" pinos depeniendo del número otorgado por los 
+        //métodos de la clase Random
         botarPino(lanzamiento);
+        //Los pinos se descuentan de la variable global
         pinos = (byte) (pinos - lanzamiento);
+        //Se suma intento para definir que está en su segundo intento de x turno
         intento++;
+        //La variable local score1 suma score1 con lanzamiento 
+        //Este será la nueva puntuación parcial del jugador
         score1= (short)(score1+lanzamiento);
+        //Suma 1 a contador para poder manejar los turnos
         contador++;
+        //Método que permite insertar información de la puntuación en Jtable
         insertarScore(turnoplayer1,lanzamiento,fila1);
         lblScore1.setText(msg+score1);
 
@@ -374,36 +392,58 @@ public class Game extends javax.swing.JFrame {
             derribos.setText("Strike!");
         }
         
+        //Informa al jugador cuantos pinos "derribó"
         derribos.setText("Jugador 1: derribaste "+lanzamiento+" pinos");
+        //En caso de strike 
         if(pinos == 0 && intento == 2)
         {
+            //Termina el turno, por lo cual se suma 1 a turnoplayer1
             turnoplayer1++;
+            //Suma 1 a contador para poder manejar los turnos
             contador++;
+            //Se habilita el botón del jugador 2 para que este pueda realizar sus
+            //tiros correspondientes y se deshabilita el del jugador 1, puesto que su 
+            //turno ya acabó
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(true);
+            //Se "paran" los pinos en el sistema
             pinos=10;
+            //Se restauran los intentos para el turno del jugador 2
             intento=1;
+            //Se "paran" los pinos en entorno gráfico
             resetPinos();
             
         }
         
+        //En caso que el jugador haya hecho Spare o no haya botado todos los pinos
         if(intento==3) 
         {
+            //Termina el turno, por lo cual se suma 1 a turnoplayer1
             turnoplayer1++;
+            //Se habilita el botón del jugador 2 para que este pueda realizar sus
+            //tiros correspondientes y se deshabilita el del jugador 1, puesto que su 
+            //turno ya acabó
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(true);
+            //Se "paran" los pinos en el sistema
             pinos=10;
+            //Se restauran los intentos para el turno del jugador 2
             intento=1;
+            //Se "paran" los pinos en entorno gráfico
             resetPinos();
            
             
         }
-        
+        //En el caso que el juego haya terminado
         }else
         {
+            //Se deshabilitan ambos botones
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
+            //Se llama al metodo para guardar la puntuación de cada jugador en el 
+            //sistema (json)
             Save();
+            //Se envía a los jugadores a la ventana pricipal
                 Main main = new Main();
                 main.setVisible(true);
                 this.setVisible(false);
@@ -411,20 +451,32 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLanza1ActionPerformed
         
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
+        //Muestra los pinos que han sido derribados y los que no
         pintarPinos();
+        //Si aun no es su último turno
         if(contador<=38)
         {    
+        //Variable en la que se almacenara el valor del lanzamiento
         int lanzamiento;
+        //Se realiza esta pregunta para que el numero del lanzamiento no sea mayor 
+        //a la cantidad de pinos restantes
         if(intento==1)
             lanzamiento= Random.AzarJ(pinos,(byte)9);
         else
             lanzamiento = Random.Azar(pinos);
-        lanzamiento = Random.Azar(pinos);
+        //Metodo que permite "botar" pinos depeniendo del número otorgado por los 
+        //métodos de la clase Random
         botarPino2(lanzamiento);
-        pinos = (byte) (pinos - lanzamiento);
+        //Los pinos se descuentan de la variable global
+         pinos = (byte) (pinos - lanzamiento);
+        //Se suma intento para definir que está en su segundo intento de x turno
         intento++;
+        //La variable local score2 suma score2 con lanzamiento 
+        //Este será la nueva puntuación parcial del jugador
         score2= (short)(score2+lanzamiento);
+        //Suma 1 a contador para poder manejar los turnos
         contador++;
+        //Método que permite insertar información de la puntuación en Jtable
         insertarScore(turnoplayer2,lanzamiento,fila1);
         lblScore2.setText(msg+score2);
 
@@ -433,37 +485,58 @@ public class Game extends javax.swing.JFrame {
         {
             derribos.setText("Strike!");
         }
+        //Informa al jugador cuantos pinos "derribó"
         derribos.setText("Jugador 2: derribaste "+lanzamiento+" pinos");
+        //En caso de Strike
         if(pinos == 0 && intento == 2)
         {
-            btnLanza1.setEnabled(true);
-            btnLanza2.setEnabled(false);
-            contador++;
-            pinos=10;
-            intento=1;
+            //Termina el turno, por lo cual se suma 1 a turnoplayer2
             turnoplayer2++;
+            //Suma 1 a contador para poder manejar los turnos
+            contador++;
+            //Se habilita el botón del jugador 1 para que este pueda realizar sus
+            //tiros correspondientes y se deshabilita el del jugador 2, puesto que su 
+            //turno ya acabó
+            btnLanza2.setEnabled(false);
+            btnLanza1.setEnabled(true);
+            //Se "paran" los pinos en el sistema
+            pinos=10;
+            //Se restauran los intentos para el turno del jugador 2
+            intento=1;
+            //Se "paran" los pinos en entorno gráfico
             resetPinos2();          
         }
-
+        
+        //En caso que el jugador haya hecho Spare o no haya botado todos los pinos
         if(intento==3 && contador < 40) 
         {
            
-            btnLanza1.setEnabled(true);
-            btnLanza2.setEnabled(false);
-            pinos=10;
-            intento=1;
+            //Termina el turno, por lo cual se suma 2 a turnoplayer2
             turnoplayer2++;
+            //Se habilita el botón del jugador 1 para que este pueda realizar sus
+            //tiros correspondientes y se deshabilita el del jugador 2, puesto que su 
+            //turno ya acabó
+            btnLanza2.setEnabled(false);
+            btnLanza1.setEnabled(true);
+            //Se "paran" los pinos en el sistema
+            pinos=10;
+            //Se restauran los intentos para el turno del jugador 2
+            intento=1;
+            //Se "paran" los pinos en entorno gráfico
             resetPinos2();
         }
         
-        
+        //En el caso que el juego haya terminado
         }else
         
         {
+           //Se deshabilitan ambos botones
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
-               Save(); 
-                
+            //Se llama al metodo para guardar la puntuación de cada jugador en el 
+            //sistema (json)
+            Save();
+            //Se envía a los jugadores a la ventana pricipal
                 Main main = new Main();
                 main.setVisible(true);
                 this.setVisible(false);
@@ -473,12 +546,15 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLanza2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Leva a la ventana principal
         Main main = new Main();
         main.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+        //Se modifica el estado de los pinos
     private void pino7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pino7ActionPerformed
+
         pino7.setSelected(!pino7.isSelected());
     }//GEN-LAST:event_pino7ActionPerformed
 
@@ -603,12 +679,14 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JTable tablaPuntaje;
     // End of variables declaration//GEN-END:variables
 
+    //Se muestran los nombres de los jugadores
     private void llenarNombres() {
         //Obtenemos ambos nombres de los jugadores y los ponemos en los 
         jugador1.setText(player1.getNombre());
         jugador2.setText(player2.getNombre());
     }
 
+    //Método que permite crear archivo json
     private void CrearArchivo() {
          Gson gson = new Gson();
         Records records= new Records();
@@ -625,9 +703,12 @@ public class Game extends javax.swing.JFrame {
 	}
     }
 
+    //Método que permite guardar puntuación de los jugadores
     private void Save() {
+        //Se modifica cada score
         player1.setScore((short)(score1));
         player2.setScore((short)(score2));
+        //Se consulta que jugador ganó
         if(player1.getScore()>player2.getScore())
         JOptionPane.showMessageDialog(null, "¡¡Ganador player 1!!..Gracias por jugar.");
         
@@ -680,8 +761,8 @@ public class Game extends javax.swing.JFrame {
                     }
                     //Grabamos los record nuevos
                     String json = gson.toJson(records);
-                    try {
-                              //write converted json data to a file named "file.json"
+                    try {   
+                              //Escribir el json convierto en "nombre.json"
                               FileWriter writer = new FileWriter("score.json");
                               writer.write(json);
                               writer.close();
@@ -703,6 +784,7 @@ public class Game extends javax.swing.JFrame {
             }
     }
 
+    //Se "paran" los pinos en entorno gráfico
     private void pintarPinos() {
        
         pino1.setSelected(true);
@@ -716,7 +798,7 @@ public class Game extends javax.swing.JFrame {
         pino9.setSelected(true);
         pino10.setSelected(true);
     }
-    
+    //Se "paran" los pinos en entorno gráfico
      private void pintarPinos2() {
        
         pino11.setSelected(true);
@@ -731,6 +813,7 @@ public class Game extends javax.swing.JFrame {
         pino20.setSelected(true);
     }
 
+     //Método que permite botar pinos en cada lanzamiento
     private void botarPino(int cantidad) {
        
         for (int i = 0; i < cantidad; i++) {
@@ -743,6 +826,7 @@ public class Game extends javax.swing.JFrame {
                     if(estado1)
                         estado1=false;
                     else
+                    //Si el pino ya está "botado" se descuenta uno del ciclo
                         i--;
                     break;
                 case 2:
@@ -813,7 +897,7 @@ public class Game extends javax.swing.JFrame {
         }
        
     }
-    
+    //Método que permite botar pinos en cada lanzamiento
     private void botarPino2(int cantidad) {
        
         for (int i = 0; i < cantidad; i++) {
@@ -826,6 +910,7 @@ public class Game extends javax.swing.JFrame {
                     if(estado11)
                         estado11=false;
                     else
+                        //Si el pino ya está "botado" se descuenta uno del ciclo
                         i--;
                     break;
                 case 2:
@@ -897,7 +982,8 @@ public class Game extends javax.swing.JFrame {
         }
        
     }
-
+    
+    //Se "paran" los pinos en entorno gráfico
     private void resetPinos() {
         estado1=true;
         estado2=true;
@@ -910,7 +996,7 @@ public class Game extends javax.swing.JFrame {
         estado9=true;
         estado10=true;
     }
-    
+    //Se "paran" los pinos en entorno gráfico
      private void resetPinos2() {
         estado11=true;
         estado12=true;
@@ -924,6 +1010,7 @@ public class Game extends javax.swing.JFrame {
         estado20=true;
     }
 
+   //Método que permite llenar tabla de puntuación del juego
    private void insertarScore(byte turno, int pinos, Object[] fila) {
         DefaultTableModel model;
         model = (DefaultTableModel)tablaPuntaje.getModel();
@@ -933,7 +1020,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 0) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 0);
@@ -985,7 +1071,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 1) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 1);
@@ -1035,7 +1120,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 2) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 2);
@@ -1085,7 +1169,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 3) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 3);
@@ -1135,7 +1218,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 4) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 4);
@@ -1185,7 +1267,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 5) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 5);
@@ -1235,7 +1316,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 6) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 6);
@@ -1285,7 +1365,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 7) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 7);
@@ -1300,7 +1379,7 @@ public class Game extends javax.swing.JFrame {
                             strikeSpare();}
                         else {
                             model.setValueAt(model.getValueAt(0, 7)+"-"+pinos, 0, 7);
-                            model.setValueAt(score1, 1, 0);
+                            model.setValueAt(score1, 1, 7);
                         }
                         pinoAuxiliar1=0;
                         //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
@@ -1335,7 +1414,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 8) == null)
                     {
                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 8);
@@ -1384,7 +1462,6 @@ public class Game extends javax.swing.JFrame {
                     if(model.getValueAt(0, 9) == null)
                     {
                          pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 9);
@@ -1435,6 +1512,7 @@ public class Game extends javax.swing.JFrame {
         
     }
 
+   //Método que crea tabla vacía
     private void crearTabla() {
          DefaultTableModel model;
         model = new DefaultTableModel(); 

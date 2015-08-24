@@ -16,8 +16,10 @@ public  class Random {
     return (byte)(Math.random()*(max+1));
     }
     
-    //Metodo que permite generar un numero random
+    //Metodo que permite generar un numero random dependiendo del nivel del jugador 
     public static byte AzarJ(byte max, byte nivel){
+        //Cada caso es para cada nivel de 0 a 9, luego del nivel 10 el jugador
+        //hará solo strikes
         switch (nivel) {
             case 0:
                 return (byte)(Math.random()*(max+1));

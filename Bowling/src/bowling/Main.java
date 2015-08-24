@@ -81,22 +81,26 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Cierra la aplicación
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Botón que lleva a la ventana que permite ingresar jugadores
         NewPlayers players =  new NewPlayers();
         players.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //Botón que lleva a la venta de tabla de puntuaciones almacenadas en el sistem
         Puntajes puntaje =  new Puntajes();
         puntaje.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
+        //Botón que lleva a la ventana opciones del sistema
         Options op =  new Options();
         op.setVisible(true);
         this.setVisible(false);

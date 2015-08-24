@@ -78,13 +78,14 @@ public class Options extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+        //Botón que lleva a la ventana principal
         Main main = new Main();
         main.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_volverActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+        //Permite eliminar todos los registros existentes
         Gson gson = new Gson();
         Records records= new Records();
 	String json = gson.toJson(records);
@@ -97,7 +98,7 @@ public class Options extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se han borrado todos los records del sistema.");
 
 	} catch (IOException e) {
-		 JOptionPane.showMessageDialog(null, "A ocurrido un error al borrar  los records del sistema.");
+		 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al borrar  los records del sistema.");
 	}
 
     

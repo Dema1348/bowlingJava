@@ -99,7 +99,9 @@ public class NewPlayers extends javax.swing.JFrame {
         //Se sacan las variables y se validan
         String nombre1= nombrePlayer1.getText();
         String nombre2= nombrePlayer2.getText();
+        //Se crea el color rojo en caso de haber un error en el ingreso del nombre
         Color color = new Color(255,0,0);
+        //Se llama a método que valida los nombres de los jugadores
         byte op = Player.validation(nombre1, nombre2);
         switch (op)
         {
@@ -121,7 +123,7 @@ public class NewPlayers extends javax.swing.JFrame {
                     Player player2= new Player(nombre2, (byte)0); 
                     Game game = new Game(player1, player2);//Se instancia la ventana para ser utilizada
                     game.setVisible(true);//Ponemos visible la ventana
-                    this.setVisible(false);//Dejamos invible la ventana anterior
+                    this.setVisible(false);//Dejamos invisible la ventana anterior
                     break;
         }
         

@@ -123,6 +123,8 @@ public class Puntajes extends javax.swing.JFrame {
                             return new Short(((Record)o2).getPlayer().getScore()).compareTo(((Record)o1).getPlayer().getScore());
                         }
                     });
+                    
+                    //Se crea la tabla para poder mostrar los puntajes
                     DefaultTableModel model;
                     model = new DefaultTableModel(); 
                     
@@ -132,7 +134,8 @@ public class Puntajes extends javax.swing.JFrame {
                     model.addColumn("Fecha");
             
                     DateFormat df =  DateFormat.getDateInstance();
-
+                    
+                    //Se llena la tabla con todos los registros
                     for (int i = 0; i < records.getRecords().size(); i++) {
                         model.addRow(new Object[]{"N°"+(i+1),records.getRecords().get(i).getPlayer().getNombre(), Short.toString(records.getRecords().get(i).getPlayer().getScore()), df.format(records.getRecords().get(i).getFecha())});
                     }
@@ -171,6 +174,7 @@ public class Puntajes extends javax.swing.JFrame {
     private javax.swing.JLabel text;
     // End of variables declaration//GEN-END:variables
 
+    //Método que permite crear archivo json
     private void CrearArchivo() {
         Gson gson = new Gson();
         Records records= new Records();
