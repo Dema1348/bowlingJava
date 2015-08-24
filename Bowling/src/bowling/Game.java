@@ -34,6 +34,8 @@ public class Game extends javax.swing.JFrame {
     byte intento = 1;
     byte contador = 0;
     byte pinos = 10;
+    byte turnoplayer1=1;
+    byte turnoplayer2=1;
     String msg= "Puntuacion: ";
     //Todos los pinos parten es estado activo , 
     //estas variables se ocupan para saber si el pino ya fue botado en la misma tirada
@@ -57,12 +59,14 @@ public class Game extends javax.swing.JFrame {
     boolean estado18=true;
     boolean estado19=true;
     boolean estado20=true;
+    Object [] fila1=new Object[10]; 
    
    
     
     public Game(Player player1, Player player2) {
         initComponents();
         this.setLocationRelativeTo(null);
+        crearTabla();
         lblScore1.setText(msg);
         lblScore2.setText(msg);
         this.player1= player1;
@@ -111,7 +115,14 @@ public class Game extends javax.swing.JFrame {
         pino5 = new javax.swing.JRadioButton();
         pino1 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        jugadores = new javax.swing.JTextField();
+        jugador1 = new javax.swing.JTextField();
+        jugador2 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaPuntaje = new javax.swing.JTable();
+        img2 = new javax.swing.JLabel();
         img = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -127,6 +138,7 @@ public class Game extends javax.swing.JFrame {
 
         derribos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         derribos.setText("Por favor lance la bola...");
+        derribos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(derribos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 250, -1));
 
         btnLanza1.setText("¡Lanzar Player 1!");
@@ -306,21 +318,46 @@ public class Game extends javax.swing.JFrame {
         jLabel1.setText("Jugando");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, -1, 20));
 
+        jugadores.setText("Jugadores");
+        jugadores.setFocusable(false);
+        getContentPane().add(jugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, -1));
+
+        jugador1.setText("Nombre 1");
+        jugador1.setFocusable(false);
+        getContentPane().add(jugador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 80, -1));
+
+        jugador2.setText("Nombre 2");
+        jugador2.setFocusable(false);
+        getContentPane().add(jugador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 80, -1));
+
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jScrollPane1.setViewportView(tablaPuntaje);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 550, 90));
+
+        img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logo.png"))); // NOI18N
+        getContentPane().add(img2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 140, 120));
+
         img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Plantilla.jpg"))); // NOI18N
         getContentPane().add(img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
+
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
-
-         pintarPinos2();
+            
+        pintarPinos2();
         if(contador<39)
         {
-           
+        
             
         byte lanzamiento = Random.Azar(pinos);
         botarPino(lanzamiento);
+        insertarScore(turnoplayer1,lanzamiento,fila1);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score1= (short)(score1+lanzamiento);
@@ -336,6 +373,7 @@ public class Game extends javax.swing.JFrame {
         derribos.setText("Jugador 1: derribaste "+lanzamiento+" pinos");
         if(pinos == 0 && intento == 2)
         {
+            turnoplayer1++;
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(true);
             pinos=10;
@@ -347,7 +385,7 @@ public class Game extends javax.swing.JFrame {
         
         if(intento==3) 
         {
-            
+            turnoplayer1++;
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(true);
             pinos=10;
@@ -382,6 +420,7 @@ public class Game extends javax.swing.JFrame {
         
         byte lanzamiento = Random.Azar(pinos);
         botarPino2(lanzamiento);
+       insertarScore((byte)(contador+1),lanzamiento,fila1);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score2= (short)(score2+lanzamiento);
@@ -532,8 +571,14 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton btnLanza2;
     private javax.swing.JLabel derribos;
     private javax.swing.JLabel img;
+    private javax.swing.JLabel img2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jugador1;
+    private javax.swing.JTextField jugador2;
+    private javax.swing.JTextField jugadores;
     private javax.swing.JLabel lblScore1;
     private javax.swing.JLabel lblScore2;
     private javax.swing.JLabel nombre1;
@@ -558,6 +603,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JRadioButton pino7;
     private javax.swing.JRadioButton pino8;
     private javax.swing.JRadioButton pino9;
+    private javax.swing.JTable tablaPuntaje;
     // End of variables declaration//GEN-END:variables
 
     private void llenarNombres() {
@@ -874,5 +920,71 @@ public class Game extends javax.swing.JFrame {
         estado18=true;
         estado19=true;
         estado20=true;
+    }
+
+    private void insertarScore(byte turno, byte pinos, Object[] fila) {
+        DefaultTableModel model;
+        model = (DefaultTableModel)tablaPuntaje.getModel();
+       
+      
+        switch (turno) {
+            case 1:
+                if(fila[0]==null)
+                fila[0]=pinos;
+                else
+                    fila[0]=fila[0]+"/"+pinos;
+                break;
+            case 2:
+                fila[1]=pinos;
+                break;
+            case 3:
+                fila[2]=pinos;
+                break;
+            case 4:
+                fila[3]=pinos;
+                break;
+            case 5:
+                fila[4]=pinos;
+                break;
+            case 6:
+                fila[5]=pinos;
+                break;
+            case 7:
+                fila[6]=pinos;
+                break;
+            case 8:
+                fila[7]=pinos;
+                break;
+            case 9:
+                fila[8]=pinos;
+                break;
+            case 10:
+                fila[9]=pinos;
+                break;
+           
+                
+              
+           
+        }
+        model.addRow(fila); 
+        tablaPuntaje.setModel(model);
+        
+    }
+
+    private void crearTabla() {
+         DefaultTableModel model;
+        model = new DefaultTableModel(); 
+        model.addColumn("1");
+        model.addColumn("2");
+        model.addColumn("3");
+        model.addColumn("4"); 
+        model.addColumn("5");
+        model.addColumn("6");
+        model.addColumn("7");
+        model.addColumn("8"); 
+        model.addColumn("9");
+        model.addColumn("10");; 
+        tablaPuntaje.setModel(model);
+        tablaPuntaje.setEnabled(false);
     }
 }
