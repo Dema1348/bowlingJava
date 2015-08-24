@@ -6,8 +6,6 @@
 package bowling;
 
 import com.google.gson.Gson;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -34,6 +32,7 @@ public class Game extends javax.swing.JFrame {
     byte intento = 1;
     byte contador = 0;
     byte pinos = 10;
+    int pinoAuxiliar1=0, pinoAuxiliar2=0;
     boolean isPlaying2=false;
     byte turnoplayer1=1;
     byte turnoplayer2=1;
@@ -918,260 +917,500 @@ public class Game extends javax.swing.JFrame {
         estado20=true;
     }
 
-    private void insertarScore(byte turno, int pinos, Object[] fila) {
+   private void insertarScore(byte turno, int pinos, Object[] fila) {
         DefaultTableModel model;
         model = (DefaultTableModel)tablaPuntaje.getModel();
         switch (turno) {
             case 1:
-                if(model.getValueAt(0, 0) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 0);
-                    else
-                        model.setValueAt(pinos, 0, 0);
-                }else if(contador==2)
-                {
-                    model.setValueAt(model.getValueAt(0, 0)+"/"+pinos, 0, 0);
-                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
-                }
-                if(contador>2)
-                {
-                    if(model.getValueAt(2, 0)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 0);
-                    else
-                        model.setValueAt(pinos, 2, 0);
-                    }else
+                    pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 0) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 0)+"/"+pinos, 2, 0);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 0);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 0);
+                    }else if(contador==2)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 0)+"- /", 0, 0);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 0)+"-"+pinos, 0, 0);
+                            model.setValueAt(score1, 1, 0);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                break;
+                    if(contador>2)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 0)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 0);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 0);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 0)+"- /", 2, 0);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 0)+"-"+pinos, 2, 0);
+                                model.setValueAt(score2, 3, 0);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 2:
-                if(model.getValueAt(0, 1) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 1);
-                    else
-                        model.setValueAt(pinos, 0, 1);
-                }else if(contador==6)
-                {
-                    model.setValueAt(model.getValueAt(0, 1)+"/"+pinos, 0, 1);
-                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
-                }
-                if(contador>6)
-                {
-                    if(model.getValueAt(2, 1)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 1);
-                    else
-                        model.setValueAt(pinos, 2, 1);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 1) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 1)+"/"+pinos, 2, 1);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 1);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 1);
+                    }else if(contador==6)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 1)+"- /", 0, 1);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 1)+"-"+pinos, 0, 1);
+                            model.setValueAt(score1, 1, 1);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                /*if(contador==8)
-                {
-                    model.setValueAt(model.getValueAt(2, 1)+"/"+pinos, 3, 1);
-                }*/    
-                fila[1]=pinos;
-                break;
+                    if(contador>6)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 1)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 1);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 1);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 1)+"- /", 2, 1);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 1)+"-"+pinos, 2, 1);
+                                model.setValueAt(score2, 3, 1);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 3:
-                if(model.getValueAt(0, 2) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 2);
-                    else
-                        model.setValueAt(pinos, 0, 2);
-                }else if(contador==10)
-                {
-                    model.setValueAt(model.getValueAt(0, 2)+"/"+pinos, 0, 2);
-                }
-                if(contador>10)
-                {
-                    if(model.getValueAt(2, 2)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 2);
-                    else
-                        model.setValueAt(pinos, 2, 2);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 2) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 2)+"/"+pinos, 2, 2);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 2);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 2);
+                    }else if(contador==10)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 2)+"- /", 0, 2);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 2)+"-"+pinos, 0, 2);
+                            model.setValueAt(score1, 1, 2);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                break;
+                    if(contador>10)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 2)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 2);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 2);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 2)+"- /", 2, 2);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 2)+"-"+pinos, 2, 2);
+                                model.setValueAt(score2, 3, 2);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 4:
-                if(model.getValueAt(0, 3) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 3);
-                    else
-                        model.setValueAt(pinos, 0, 3);
-                }else if(contador==14)
-                {
-                    model.setValueAt(model.getValueAt(0, 3)+"/"+pinos, 0, 3);
-                }
-                if(contador>14)
-                {
-                    if(model.getValueAt(2, 3)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 3);
-                    else
-                        model.setValueAt(pinos, 2, 3);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 3) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 3)+"/"+pinos, 2, 3);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 3);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 3);
+                    }else if(contador==14)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 3)+"- /", 0, 3);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 3)+"-"+pinos, 0, 3);
+                            model.setValueAt(score1, 1, 3);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                break;
+                    if(contador>14)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 3)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 3);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 3);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 3)+"- /", 2, 3);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 3)+"-"+pinos, 2, 3);
+                                model.setValueAt(score2, 3, 3);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 5:
-                if(model.getValueAt(0, 4) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 4);
-                    else
-                        model.setValueAt(pinos, 0, 4);
-                }else if(contador==18)
-                {
-                    model.setValueAt(model.getValueAt(0, 4)+"/"+pinos, 0, 4);
-                }
-                if(contador>18)
-                {
-                    if(model.getValueAt(2, 4)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 4);
-                    else
-                        model.setValueAt(pinos, 2, 4);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 4) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 4)+"/"+pinos, 2, 4);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 4);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 4);
+                    }else if(contador==18)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 4)+"- /", 0, 4);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 4)+"-"+pinos, 0, 4);
+                            model.setValueAt(score1, 1, 4);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                break;
+                    if(contador>18)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 4)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 4);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 4);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 4)+"- /", 2, 4);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 4)+"-"+pinos, 2, 4);
+                                model.setValueAt(score2, 3, 4);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 6:
-                if(model.getValueAt(0, 5) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 5);
-                    else
-                        model.setValueAt(pinos, 0, 5);
-                }else if(contador==22)
-                {
-                    model.setValueAt(model.getValueAt(0, 5)+"/"+pinos, 0, 5);
-                }
-                if(contador>22)
-                {
-                    if(model.getValueAt(2, 5)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 5);
-                    else
-                        model.setValueAt(pinos, 2, 5);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 5) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 5)+"/"+pinos, 2, 5);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 5);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 5);
+                    }else if(contador==22)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 5)+"- /", 0, 5);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 5)+"-"+pinos, 0, 5);
+                            model.setValueAt(score1, 1, 5);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                break;
+                    if(contador>22)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 5)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 5);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 5);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 5)+"- /", 2, 5);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 5)+"-"+pinos, 2, 5);
+                                model.setValueAt(score2, 3, 5);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 7:
-                if(model.getValueAt(0, 6) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 6);
-                    else
-                        model.setValueAt(pinos, 0, 6);
-                }else if(contador==26)
-                {
-                    model.setValueAt(model.getValueAt(0, 6)+"/"+pinos, 0, 6);
-                }
-                if(contador>26)
-                {
-                    if(model.getValueAt(2, 6)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 6);
-                    else
-                        model.setValueAt(pinos, 2, 6);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 6) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 6)+"/"+pinos, 2, 6);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 6);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 6);
+                    }else if(contador==26)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 6)+"- /", 0, 6);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 6)+"-"+pinos, 0, 6);
+                            model.setValueAt(score1, 1, 6);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                break;
+                    if(contador>26)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 6)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 6);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 6);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 6)+"- /", 2, 6);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 6)+"-"+pinos, 2, 6);
+                                model.setValueAt(score2, 3, 6);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 8:
-                if(model.getValueAt(0, 7) == null)
-                {
-                    if(pinos==10)
-                        model.setValueAt("X", 0, 7);
-                    else
-                        model.setValueAt(pinos, 0, 7);
-                }else if(contador==30)
-                {
-                    model.setValueAt(model.getValueAt(0, 7)+"/"+pinos, 0, 7);
-                }
-                if(contador>30)
-                {
-                    if(model.getValueAt(2, 7)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 7);
-                    else
-                        model.setValueAt(pinos, 2, 7);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 7) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 7)+"/"+pinos, 2, 7);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 7);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 7);
+                    }else if(contador==30)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 7)+"- /", 0, 7);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 7)+"-"+pinos, 0, 7);
+                            model.setValueAt(score1, 1, 0);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                fila[7]=pinos;
-                break;
+                    if(contador>30)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 7)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 7);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 7);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 7)+"- /", 2, 7);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 7)+"-"+pinos, 2, 7);
+                                model.setValueAt(score2, 3, 7);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 9:
-                if(model.getValueAt(0, 8) == null)
-                {
-                   if(pinos==10)
-                        model.setValueAt("X", 0, 8);
-                    else
-                        model.setValueAt(pinos, 0, 8);
-                }else if(contador==34)
-                {
-                    model.setValueAt(model.getValueAt(0, 8)+"/"+pinos, 0, 8);
-                }
-                if(contador>34)
-                {
-                    if(model.getValueAt(2, 8)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 8);
-                    else
-                        model.setValueAt(pinos, 2, 8);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 8) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 8)+"/"+pinos, 2, 8);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 8);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 8);
+                    }else if(contador==34)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 8)+"- /", 0, 8);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 8)+"-"+pinos, 0, 8);
+                            model.setValueAt(score1, 1, 8);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                fila[8]=pinos;
-                break;
+                    if(contador>34)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 8)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 8);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 8);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 8)+"- /", 2, 8);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 8)+"-"+pinos, 2, 8);
+                                model.setValueAt(score2, 3, 8);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;
             case 10:
-                if(model.getValueAt(0, 9) == null)
-                {
-                   if(pinos==10)
-                        model.setValueAt("X", 0, 9);
-                    else
-                        model.setValueAt(pinos, 0, 9);;
-                }else if(contador==38)
-                {
-                    model.setValueAt(model.getValueAt(0, 9)+"/"+pinos, 0, 9);
-                }
-                if(contador>38)
-                {
-                    if(model.getValueAt(2, 9)==null){
-                        if(pinos==10)
-                        model.setValueAt("X", 2, 9);
-                    else
-                        model.setValueAt(pinos, 2, 9);
-                    }else
+                     pinoAuxiliar1=pinoAuxiliar1+pinos;
+                    System.out.println(pinoAuxiliar1);
+                    if(model.getValueAt(0, 9) == null)
                     {
-                        model.setValueAt(model.getValueAt(2, 9)+"/"+pinos, 2, 9);
+                        if(pinos==10){
+                            pinoAuxiliar1=0;
+                            model.setValueAt("X", 0, 9);
+                            strikeSpare();}
+                        else
+                            model.setValueAt(pinos, 0, 9);
+                    }else if(contador==38)
+                    {
+                        if(pinoAuxiliar1==10){
+                            model.setValueAt(model.getValueAt(0, 9)+"- /", 0, 9);
+                            strikeSpare();}
+                        else {
+                            model.setValueAt(model.getValueAt(0, 9)+"-"+pinos, 0, 9);
+                            model.setValueAt(score1, 1, 9);
+                        }
+                        pinoAuxiliar1=0;
+                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
-                } 
-                fila[9]=pinos;
-                break;    
+                    if(contador>38)
+                    {
+                        pinoAuxiliar2=pinoAuxiliar2+pinos;
+                        System.out.println(pinoAuxiliar2);
+                        if(model.getValueAt(2, 9)==null){
+                            if(pinos==10){
+                                pinoAuxiliar2=0;
+                                model.setValueAt("X", 2, 9);
+                                strikeSpare();
+                            }
+                        else
+                            model.setValueAt(pinos, 2, 9);
+                        }else
+                        {
+                            if(pinoAuxiliar2==10){
+                                model.setValueAt(model.getValueAt(2, 9)+"- /", 2, 9);
+                                strikeSpare();
+                            }
+                            else{
+                                model.setValueAt(model.getValueAt(2, 9)+"-"+pinos, 2, 9);
+                                model.setValueAt(score2, 3, 9);
+                            }
+                            pinoAuxiliar2=0;
+                        }
+                    } 
+                    break;   
         }
         model.addRow(fila); 
         tablaPuntaje.setModel(model);
@@ -1197,5 +1436,9 @@ public class Game extends javax.swing.JFrame {
         model.addRow(new Object[]{});
         tablaPuntaje.setModel(model);
         tablaPuntaje.setEnabled(false);
+    }
+
+    private void strikeSpare() {
+        
     }
 }
