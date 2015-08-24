@@ -354,7 +354,12 @@ public class Game extends javax.swing.JFrame {
         pintarPinos2();
         if(contador<39)
         {
-        int lanzamiento = Random.Azar(pinos);
+            System.out.println(pinoAuxiliar1);
+        int lanzamiento;
+        if(intento==1)
+            lanzamiento= Random.AzarJ(pinos,(byte)9);
+        else
+            lanzamiento = Random.Azar(pinos);
         botarPino(lanzamiento);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
@@ -409,16 +414,18 @@ public class Game extends javax.swing.JFrame {
         pintarPinos();
         if(contador<=38)
         {    
-        System.out.println(turnoplayer2);
-        int lanzamiento = Random.Azar(pinos);
+        int lanzamiento;
+        if(intento==1)
+            lanzamiento= Random.AzarJ(pinos,(byte)9);
+        else
+            lanzamiento = Random.Azar(pinos);
+        lanzamiento = Random.Azar(pinos);
         botarPino2(lanzamiento);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
         score2= (short)(score2+lanzamiento);
-        //player2.setScore((short)(player2.getScore() + score2));
         contador++;
         insertarScore(turnoplayer2,lanzamiento,fila1);
-        System.out.println(contador);
         lblScore2.setText(msg+score2);
 
         //En caso de strike 
@@ -922,10 +929,11 @@ public class Game extends javax.swing.JFrame {
         model = (DefaultTableModel)tablaPuntaje.getModel();
         switch (turno) {
             case 1:
-                    pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                    
                     if(model.getValueAt(0, 0) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 0);
@@ -934,20 +942,22 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 0);
                     }else if(contador==2)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 0)+"- /", 0, 0);
+                            pinoAuxiliar1=0;
                             strikeSpare();}
                         else {
                             model.setValueAt(model.getValueAt(0, 0)+"-"+pinos, 0, 0);
                             model.setValueAt(score1, 1, 0);
+                            pinoAuxiliar1=0;
                         }
-                        pinoAuxiliar1=0;
+                        //pinoAuxiliar1=0;
                         //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
                     }
                     if(contador>2)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 0)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -971,10 +981,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 2:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                     
                     if(model.getValueAt(0, 1) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 1);
@@ -983,6 +994,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 1);
                     }else if(contador==6)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 1)+"- /", 0, 1);
                             strikeSpare();}
@@ -996,7 +1008,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>6)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 1)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1020,10 +1031,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 3:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                     
                     if(model.getValueAt(0, 2) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 2);
@@ -1032,6 +1044,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 2);
                     }else if(contador==10)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 2)+"- /", 0, 2);
                             strikeSpare();}
@@ -1045,7 +1058,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>10)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 2)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1069,10 +1081,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 4:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                     
                     if(model.getValueAt(0, 3) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 3);
@@ -1081,6 +1094,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 3);
                     }else if(contador==14)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 3)+"- /", 0, 3);
                             strikeSpare();}
@@ -1094,7 +1108,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>14)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 3)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1118,10 +1131,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 5:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                     
                     if(model.getValueAt(0, 4) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 4);
@@ -1130,6 +1144,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 4);
                     }else if(contador==18)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 4)+"- /", 0, 4);
                             strikeSpare();}
@@ -1143,7 +1158,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>18)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 4)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1167,10 +1181,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 6:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                    
                     if(model.getValueAt(0, 5) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 5);
@@ -1179,6 +1194,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 5);
                     }else if(contador==22)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 5)+"- /", 0, 5);
                             strikeSpare();}
@@ -1192,7 +1208,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>22)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 5)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1216,10 +1231,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 7:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                    
                     if(model.getValueAt(0, 6) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 6);
@@ -1228,6 +1244,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 6);
                     }else if(contador==26)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 6)+"- /", 0, 6);
                             strikeSpare();}
@@ -1241,7 +1258,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>26)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 6)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1265,10 +1281,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 8:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                    
                     if(model.getValueAt(0, 7) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 7);
@@ -1277,6 +1294,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 7);
                     }else if(contador==30)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 7)+"- /", 0, 7);
                             strikeSpare();}
@@ -1290,7 +1308,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>30)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 7)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1314,10 +1331,11 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 9:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
+                    
                     if(model.getValueAt(0, 8) == null)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 8);
@@ -1326,6 +1344,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 8);
                     }else if(contador==34)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 8)+"- /", 0, 8);
                             strikeSpare();}
@@ -1339,7 +1358,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>34)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 8)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
@@ -1363,10 +1381,10 @@ public class Game extends javax.swing.JFrame {
                     } 
                     break;
             case 10:
-                     pinoAuxiliar1=pinoAuxiliar1+pinos;
-                    System.out.println(pinoAuxiliar1);
                     if(model.getValueAt(0, 9) == null)
                     {
+                         pinoAuxiliar1=pinoAuxiliar1+pinos;
+                        System.out.println(pinoAuxiliar1);
                         if(pinos==10){
                             pinoAuxiliar1=0;
                             model.setValueAt("X", 0, 9);
@@ -1375,6 +1393,7 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt(pinos, 0, 9);
                     }else if(contador==38)
                     {
+                        pinoAuxiliar1=pinoAuxiliar1+pinos;
                         if(pinoAuxiliar1==10){
                             model.setValueAt(model.getValueAt(0, 9)+"- /", 0, 9);
                             strikeSpare();}
@@ -1388,7 +1407,6 @@ public class Game extends javax.swing.JFrame {
                     if(contador>38)
                     {
                         pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        System.out.println(pinoAuxiliar2);
                         if(model.getValueAt(2, 9)==null){
                             if(pinos==10){
                                 pinoAuxiliar2=0;
