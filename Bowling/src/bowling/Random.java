@@ -15,4 +15,9 @@ public  class Random {
     public static byte Azar(byte max){
     return (byte)(Math.random()*(max+1));
     }
+    
+    //Metodo que permite generar un numero random
+    public static byte AzarJ(byte max, byte min){
+    return (byte)(Math.random()*((max+1)+min)-min);
+    }
 }
