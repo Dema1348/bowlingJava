@@ -60,22 +60,24 @@ public class Game extends javax.swing.JFrame {
     boolean estado19=true;
     boolean estado20=true;
     Object [] fila1=new Object[10]; 
-    Object [][] data = {{1,2,3,4,5,6,7,8,9,38}, {1,2,3,4,5,6,7,8,9,38}};
-   
+    Object [] spore= new Object[13];
+    Short [] scoreAux= new Short[13];
+    Object [] strike= new Object[13];
+    Object [] spore2= new Object[13];
+    Short [] scoreAux2= new Short[13];
+    Object [] strike2= new Object[13];
    
     
     public Game(Player player1, Player player2) {
         initComponents();
         this.setLocationRelativeTo(null);
         crearTabla();
-        lblScore1.setText(msg);
-        lblScore2.setText(msg);
         this.player1= player1;
-        this.player2=player2;
-        llenarNombres();//Metodo para llenar los nombres
+        this.player2= player2;
         btnLanza2.setEnabled(false);
         pintarPinos();
         pintarPinos2();
+        llenarNombres();//Metodo para llenar los nombres
     }
 
     /**
@@ -92,8 +94,6 @@ public class Game extends javax.swing.JFrame {
         derribos = new javax.swing.JLabel();
         btnLanza1 = new javax.swing.JButton();
         btnLanza2 = new javax.swing.JButton();
-        lblScore1 = new javax.swing.JLabel();
-        lblScore2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         pino7 = new javax.swing.JRadioButton();
         pino8 = new javax.swing.JRadioButton();
@@ -157,14 +157,6 @@ public class Game extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLanza2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, -1, -1));
-
-        lblScore1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblScore1.setText("jLabel1");
-        getContentPane().add(lblScore1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
-
-        lblScore2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblScore2.setText("jLabel1");
-        getContentPane().add(lblScore2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -352,21 +344,20 @@ public class Game extends javax.swing.JFrame {
     private void btnLanza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza1ActionPerformed
             
         pintarPinos2();
-        if(contador<39)
+        if(contador<40)
         {
-            System.out.println(pinoAuxiliar1);
+        
         int lanzamiento;
         if(intento==1)
-            lanzamiento= Random.AzarJ(pinos,(byte)9);
+            lanzamiento= Random.AzarJ(pinos,(byte)0);
         else
             lanzamiento = Random.Azar(pinos);
         botarPino(lanzamiento);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
-        score1= (short)(score1+lanzamiento);
         contador++;
         insertarScore(turnoplayer1,lanzamiento,fila1);
-        lblScore1.setText(msg+score1);
+        
 
         //En caso de strike 
         if(lanzamiento == 10)
@@ -399,34 +390,30 @@ public class Game extends javax.swing.JFrame {
             
         }
         
+        
         }else
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
-            Save();
-                Main main = new Main();
-                main.setVisible(true);
-                this.setVisible(false);
+            
             }
     }//GEN-LAST:event_btnLanza1ActionPerformed
         
     private void btnLanza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanza2ActionPerformed
         pintarPinos();
-        if(contador<=38)
+        if(contador<=40)
         {    
         int lanzamiento;
         if(intento==1)
             lanzamiento= Random.AzarJ(pinos,(byte)9);
         else
             lanzamiento = Random.Azar(pinos);
-        lanzamiento = Random.Azar(pinos);
         botarPino2(lanzamiento);
         pinos = (byte) (pinos - lanzamiento);
         intento++;
-        score2= (short)(score2+lanzamiento);
         contador++;
         insertarScore(turnoplayer2,lanzamiento,fila1);
-        lblScore2.setText(msg+score2);
+        
 
         //En caso de strike 
         if(lanzamiento == 10)
@@ -462,11 +449,7 @@ public class Game extends javax.swing.JFrame {
         {
             btnLanza1.setEnabled(false);
             btnLanza2.setEnabled(false);
-               Save(); 
-                
-                Main main = new Main();
-                main.setVisible(true);
-                this.setVisible(false);
+              
                 
             }
         
@@ -576,8 +559,6 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JTextField jugador1;
     private javax.swing.JTextField jugador2;
     private javax.swing.JTextField jugadores;
-    private javax.swing.JLabel lblScore1;
-    private javax.swing.JLabel lblScore2;
     private javax.swing.JLabel nombre1;
     private javax.swing.JLabel nombre2;
     private javax.swing.JRadioButton pino1;
@@ -607,6 +588,8 @@ public class Game extends javax.swing.JFrame {
         //Obtenemos ambos nombres de los jugadores y los ponemos en los 
         jugador1.setText(player1.getNombre());
         jugador2.setText(player2.getNombre());
+        nombre1.setText(player1.getNombre());
+        nombre2.setText(player2.getNombre());
     }
 
     private void CrearArchivo() {
@@ -924,515 +907,1004 @@ public class Game extends javax.swing.JFrame {
         estado20=true;
     }
 
-   private void insertarScore(byte turno, int pinos, Object[] fila) {
+    private void insertarScore(byte turno, int pinos, Object[] fila) {
         DefaultTableModel model;
-        model = (DefaultTableModel)tablaPuntaje.getModel();
+        model = (DefaultTableModel) tablaPuntaje.getModel();
         switch (turno) {
             case 1:
-                    
-                    if(model.getValueAt(0, 0) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 0);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 0);
-                    }else if(contador==2)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 0)+"- /", 0, 0);
-                            pinoAuxiliar1=0;
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 0)+"-"+pinos, 0, 0);
-                            model.setValueAt(score1, 1, 0);
-                            pinoAuxiliar1=0;
-                        }
-                        //pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 0) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+
+                    if (pinos == 10) {
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 0);
+                        strike(turno);
+                        score1 += pinos;
+                    } else {
+                        model.setValueAt(pinos, 0, 0);
+                        score1 += pinos;
                     }
-                    if(contador>2)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 0)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 0);
-                                strikeSpare();
-                            }
-                        else
+                } else if (contador == 2) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        model.setValueAt(model.getValueAt(0, 0) + "- /", 0, 0);
+                        pinoAuxiliar1 = 0;
+                        score1 += pinos;
+                        spare(turno);
+                    } else {
+                        score1 += pinos;
+                        model.setValueAt(model.getValueAt(0, 0) + "-" + pinos, 0, 0);
+                        model.setValueAt(score1, 1, 0);
+                        
+                    }
+                    pinoAuxiliar1 = 0;
+
+                }
+                if (contador > 2) {
+
+                    if (model.getValueAt(2, 0) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 0);
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
                             model.setValueAt(pinos, 2, 0);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 0)+"- /", 2, 0);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 0)+"-"+pinos, 2, 0);
-                                model.setValueAt(score2, 3, 0);
-                            }
-                            pinoAuxiliar2=0;
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            model.setValueAt(model.getValueAt(2, 0) + "- /", 2, 0);
+                            spare2(turno);
+                        } else {
+                            score2 += pinos;
+                            model.setValueAt(model.getValueAt(2, 0) + "-" + pinos, 2, 0);
+                            model.setValueAt(score2, 3, 0);
+                            
+                        }
+                        pinoAuxiliar2 = 0;
+
+                    }
+                }
+                break;
             case 2:
-                     
-                    if(model.getValueAt(0, 1) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 1);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 1);
-                    }else if(contador==6)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 1)+"- /", 0, 1);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 1)+"-"+pinos, 0, 1);
-                            model.setValueAt(score1, 1, 1);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 1) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 0);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>6)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 1)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 1);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 1);
+                        score1 += pinos;
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 0);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(pinos, 0, 1);
+                        
+                    }
+
+                } else if (contador == 6) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        model.setValueAt(model.getValueAt(0, 1) + "- /", 0, 1);
+                        score1 += pinos;
+                        spare(turno);
+                        if (comprobarStrike(turno, pinos)) {
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 0);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                    } else {
+                        
+                        score1 += pinos;
+                         if (comprobarStrike(turno, pinos)) {
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 0);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 1) + "-" + pinos, 0, 1);
+                        model.setValueAt(score1, 1, 1);
+                       
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 6) {
+
+                    if (model.getValueAt(2, 1) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 0);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 1);
+                            strike2(turno);
+                        } else {
+                            
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 0);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
+
                             model.setValueAt(pinos, 2, 1);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 1)+"- /", 2, 1);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 1)+"-"+pinos, 2, 1);
-                                model.setValueAt(score2, 3, 1);
-                            }
-                            pinoAuxiliar2=0;
+                            
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 0);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 1) + "- /", 2, 1);
+                            spare2(turno);
+                           
+                        } else {
+                            
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 0);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 1) + "-" + pinos, 2, 1);
+                            model.setValueAt(score2, 3, 1);
+                            
+                            
+                            
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
             case 3:
-                     
-                    if(model.getValueAt(0, 2) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 2);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 2);
-                    }else if(contador==10)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 2)+"- /", 0, 2);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 2)+"-"+pinos, 0, 2);
-                            model.setValueAt(score1, 1, 2);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 2) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+
                     }
-                    if(contador>10)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 2)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 2);
-                                strikeSpare();
+
+                    if (pinos == 10) {
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 2);
+                        score1 += pinos;
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+
+                        }
+                        model.setValueAt(pinos, 0, 2);
+                        
+                    }
+                } else if (contador == 10) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                         if (comprobarStrike(turno, pinos)) {
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+
+                        }
+                        model.setValueAt(model.getValueAt(0, 2) + "- /", 0, 2);
+                        spare(turno);
+                       
+
+                    } else {
+                        
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+
+                        }
+                        model.setValueAt(model.getValueAt(0, 2) + "-" + pinos, 0, 2);
+                        model.setValueAt(score1, 1, 2);
+                        
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 10) {
+
+                    if (model.getValueAt(2, 2) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 1);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 2);
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 1);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 2);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 2)+"- /", 2, 2);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 2)+"-"+pinos, 2, 2);
-                                model.setValueAt(score2, 3, 2);
-                            }
-                            pinoAuxiliar2=0;
+                           
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 1);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 2) + "- /", 2, 2);
+                            spare2(turno);
+                            
+                        } else {
+                            
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 1);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 2) + "-" + pinos, 2, 2);
+                            model.setValueAt(score2, 3, 2);
+                           
+                            
+                        }
+                         pinoAuxiliar2 = 0;
+
+                    }
+                }
+                break;
             case 4:
-                     
-                    if(model.getValueAt(0, 3) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 3);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 3);
-                    }else if(contador==14)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 3)+"- /", 0, 3);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 3)+"-"+pinos, 0, 3);
-                            model.setValueAt(score1, 1, 3);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 3) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 2);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>14)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 3)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 3);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        pinoAuxiliar1 = 0;
+                        score1 += pinos;
+                        model.setValueAt("X", 0, 3);
+                        strike(turno);
+                    } else {
+                        model.setValueAt(pinos, 0, 3);
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 2);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                    }
+                } else if (contador == 14) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        model.setValueAt(model.getValueAt(0, 3) + "- /", 0, 3);
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 2);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        spare(turno);
+                        
+
+                    } else {
+                         
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 2);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 3) + "-" + pinos, 0, 3);
+                        model.setValueAt(score1, 1, 3);
+                       
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 14) {
+
+                    if (model.getValueAt(2, 3) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 2);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 3);
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 2);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 3);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 3)+"- /", 2, 3);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 3)+"-"+pinos, 2, 3);
-                                model.setValueAt(score2, 3, 3);
-                            }
-                            pinoAuxiliar2=0;
+                            
+
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 2);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 3) + "- /", 2, 3);
+                            spare2(turno);
+                           
+                        } else {
+                             
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 2);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 3) + "-" + pinos, 2, 3);
+                            model.setValueAt(score2, 3, 3);
+                           
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
             case 5:
-                     
-                    if(model.getValueAt(0, 4) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 4);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 4);
-                    }else if(contador==18)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 4)+"- /", 0, 4);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 4)+"-"+pinos, 0, 4);
-                            model.setValueAt(score1, 1, 4);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 4) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 3);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>18)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 4)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 4);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        pinoAuxiliar1 = 0;
+                        score1 += pinos;
+                        model.setValueAt("X", 0, 4);
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 3);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(pinos, 0, 4);
+                        
+                    }
+                } else if (contador == 18) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                          if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 3);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 4) + "- /", 0, 4);
+                        spare(turno);
+                      
+                    } else {
+                        score1 += pinos;
+                         if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 3);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 4) + "-" + pinos, 0, 4);
+                        model.setValueAt(score1, 1, 4);
+                       
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 18) {
+
+                    if (model.getValueAt(2, 4) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 4);
+
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 4);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 4)+"- /", 2, 4);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 4)+"-"+pinos, 2, 4);
-                                model.setValueAt(score2, 3, 4);
-                            }
-                            pinoAuxiliar2=0;
+                            
+
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 4) + "- /", 2, 4);
+                            spare2(turno);
+                            
+                        } else {
+                            
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 4) + "-" + pinos, 2, 4);
+                            model.setValueAt(score2, 3, 4);
+                           
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
             case 6:
-                    
-                    if(model.getValueAt(0, 5) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 5);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 5);
-                    }else if(contador==22)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 5)+"- /", 0, 5);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 5)+"-"+pinos, 0, 5);
-                            model.setValueAt(score1, 1, 5);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 5) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 4);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>22)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 5)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 5);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        score1 += pinos;
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 5);
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 4);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(pinos, 0, 5);
+                        
+                    }
+                } else if (contador == 22) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 4);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 5) + "- /", 0, 5);
+                        spare(turno);
+                        
+
+                    } else {
+                         
+                        score1 += pinos;
+                        
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 4);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 5) + "-" + pinos, 0, 5);
+                        model.setValueAt(score1, 1, 5);
+                       
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 22) {
+
+                    if (model.getValueAt(2, 5) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 5);
+
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 5);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 5)+"- /", 2, 5);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 5)+"-"+pinos, 2, 5);
-                                model.setValueAt(score2, 3, 5);
-                            }
-                            pinoAuxiliar2=0;
+                           
+
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 5) + "- /", 2, 5);
+                            spare2(turno);
+                            
+                        } else {
+                             
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 5) + "-" + pinos, 2, 5);
+                            model.setValueAt(score2, 3, 5);
+                          
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
             case 7:
-                    
-                    if(model.getValueAt(0, 6) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 6);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 6);
-                    }else if(contador==26)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 6)+"- /", 0, 6);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 6)+"-"+pinos, 0, 6);
-                            model.setValueAt(score1, 1, 6);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 6) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 5);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>26)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 6)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 6);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        score1 += pinos;
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 6);
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 5);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(pinos, 0, 6);
+                        
+                    }
+                } else if (contador == 26) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 5);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 6) + "- /", 0, 6);
+                        spare(turno);
+                        
+
+                    } else {
+                         
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 5);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 6) + "-" + pinos, 0, 6);
+                        model.setValueAt(score1, 1, 6);
+                       
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 26) {
+
+                    if (model.getValueAt(2, 6) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 5);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 6);
+
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 5);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 6);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 6)+"- /", 2, 6);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 6)+"-"+pinos, 2, 6);
-                                model.setValueAt(score2, 3, 6);
-                            }
-                            pinoAuxiliar2=0;
+                           
+
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 5);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 6) + "- /", 2, 6);
+                            spare2(turno);
+                            
+                        } else {
+                            
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 5);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 6) + "-" + pinos, 2, 6);
+                            model.setValueAt(score2, 3, 6);
+                            
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
             case 8:
-                    
-                    if(model.getValueAt(0, 7) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 7);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 7);
-                    }else if(contador==30)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 7)+"- /", 0, 7);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 7)+"-"+pinos, 0, 7);
-                            model.setValueAt(score1, 1, 0);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 7) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 6);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>30)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 7)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 7);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        score1 += pinos;
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 7);
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 6);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(pinos, 0, 7);
+                        
+                    }
+                } else if (contador == 30) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 6);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 7) + "- /", 0, 7);
+                        spare(turno);
+                        
+
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 6);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 7) + "-" + pinos, 0, 7);
+                        model.setValueAt(score1, 1, 7);
+                        
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 30) {
+
+                    if (model.getValueAt(2, 7) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 6);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 7);
+
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 6);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 7);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 7)+"- /", 2, 7);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 7)+"-"+pinos, 2, 7);
-                                model.setValueAt(score2, 3, 7);
-                            }
-                            pinoAuxiliar2=0;
+                            
+
                         }
-                    } 
-                    break;
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 6);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 7) + "- /", 2, 7);
+                            spare2(turno);
+                            
+                        } else {
+                             
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 6);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 7) + "-" + pinos, 2, 7);
+                            model.setValueAt(score2, 3, 7);
+                           
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
             case 9:
-                    
-                    if(model.getValueAt(0, 8) == null)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 8);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 8);
-                    }else if(contador==34)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 8)+"- /", 0, 8);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 8)+"-"+pinos, 0, 8);
-                            model.setValueAt(score1, 1, 8);
-                        }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+
+                if (model.getValueAt(0, 8) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 7);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                     }
-                    if(contador>34)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 8)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 8);
-                                strikeSpare();
+                    if (pinos == 10) {
+                        score1 += pinos;
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 8);
+                        strike(turno);
+                    } else {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 7);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(pinos, 0, 8);
+                        
+                    }
+                } else if (contador == 34) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 7);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 8) + "- /", 0, 8);
+                        spare(turno);
+                        
+
+                    } else {
+                        
+                        score1 += pinos;
+                         if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 7);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 8) + "-" + pinos, 0, 8);
+                        model.setValueAt(score1, 1, 8);
+                       
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 34) {
+
+                    if (model.getValueAt(2, 8) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 7);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 8);
+                            strike2(turno);
+                        } else {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 7);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
                             }
-                        else
                             model.setValueAt(pinos, 2, 8);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 8)+"- /", 2, 8);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 8)+"-"+pinos, 2, 8);
-                                model.setValueAt(score2, 3, 8);
-                            }
-                            pinoAuxiliar2=0;
+                            
+
                         }
-                    } 
-                    break;
-            case 10:
-                    if(model.getValueAt(0, 9) == null)
-                    {
-                         pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        System.out.println(pinoAuxiliar1);
-                        if(pinos==10){
-                            pinoAuxiliar1=0;
-                            model.setValueAt("X", 0, 9);
-                            strikeSpare();}
-                        else
-                            model.setValueAt(pinos, 0, 9);
-                    }else if(contador==38)
-                    {
-                        pinoAuxiliar1=pinoAuxiliar1+pinos;
-                        if(pinoAuxiliar1==10){
-                            model.setValueAt(model.getValueAt(0, 9)+"- /", 0, 9);
-                            strikeSpare();}
-                        else {
-                            model.setValueAt(model.getValueAt(0, 9)+"-"+pinos, 0, 9);
-                            model.setValueAt(score1, 1, 9);
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 7);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 8) + "- /", 2, 8);
+                            spare2(turno);
+                            
+                        } else {
+                            
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 7);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 8) + "-" + pinos, 2, 8);
+                            model.setValueAt(score2, 3, 8);
+                           
                         }
-                        pinoAuxiliar1=0;
-                        //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                        pinoAuxiliar2 = 0;
                     }
-                    if(contador>38)
-                    {
-                        pinoAuxiliar2=pinoAuxiliar2+pinos;
-                        if(model.getValueAt(2, 9)==null){
-                            if(pinos==10){
-                                pinoAuxiliar2=0;
-                                model.setValueAt("X", 2, 9);
-                                strikeSpare();
-                            }
-                        else
-                            model.setValueAt(pinos, 2, 9);
-                        }else
-                        {
-                            if(pinoAuxiliar2==10){
-                                model.setValueAt(model.getValueAt(2, 9)+"- /", 2, 9);
-                                strikeSpare();
-                            }
-                            else{
-                                model.setValueAt(model.getValueAt(2, 9)+"-"+pinos, 2, 9);
-                                model.setValueAt(score2, 3, 9);
-                            }
-                            pinoAuxiliar2=0;
+                }
+                break;
+            case 10:
+                if (model.getValueAt(0, 9) == null) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (comprobarSpore(turno, pinos)) {
+
+                        model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 8);
+                        score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                    }
+                    if (pinos == 10) {
+
+                        score1 += pinos;
+                        pinoAuxiliar1 = 0;
+                        model.setValueAt("X", 0, 9);
+                        strikeE();
+                    } else {
+                        score1 += pinos;
+                        model.setValueAt(pinos, 0, 9);
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 8);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
                         }
-                    } 
-                    break;   
+
+                    }
+                } else if (contador == 38) {
+                    pinoAuxiliar1 = pinoAuxiliar1 + pinos;
+                    if (pinoAuxiliar1 == 10) {
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 8);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 9) + "- /", 0, 9);
+                        spareE();
+                        
+
+                    } else {
+                        
+                        score1 += pinos;
+                        if (comprobarStrike(turno, pinos)) {
+
+                            model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 8);
+                            score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                        }
+                        model.setValueAt(model.getValueAt(0, 9) + "-" + pinos, 0, 9);
+                        model.setValueAt(score1, 1, 9);
+                        model.setValueAt(score1, 1, 10);
+                        
+
+                    }
+                    pinoAuxiliar1 = 0;
+                    //model.setValueAt(model.getValueAt(WIDTH, WIDTH), WIDTH, WIDTH);
+                }
+                if (contador > 38) {
+
+                    if (model.getValueAt(2, 9) == null) {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (comprobarSpore2(turno, pinos)) {
+                            model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 8);
+                            score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                        }
+                        if (pinos == 10) {
+                            score2 += pinos;
+                            pinoAuxiliar2 = 0;
+                            model.setValueAt("X", 2, 9);
+
+                            strike2(turno);
+
+                            Save();
+                            Main main = new Main();
+                            main.setVisible(true);
+                            this.setVisible(false);
+                        } else {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 8);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(pinos, 2, 9);
+                            
+
+                        }
+                    } else {
+                        pinoAuxiliar2 = pinoAuxiliar2 + pinos;
+                        if (pinoAuxiliar2 == 10) {
+                            score2 += pinos;
+                            if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 8);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 9) + "- /", 2, 9);
+                            spare2E();
+                            
+                            Save();
+                            Main main = new Main();
+                            main.setVisible(true);
+                            this.setVisible(false);
+                        } else {
+                           
+                            
+                            score2 += pinos;
+                             if (comprobarStrike2(turno, pinos)) {
+                                model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 8);
+                                score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                            }
+                            model.setValueAt(model.getValueAt(2, 9) + "-" + pinos, 2, 9);
+                            model.setValueAt(score2, 3, 9);
+                            model.setValueAt(score2, 3, 10);
+                            
+                            Save();
+                            Main main = new Main();
+                            main.setVisible(true);
+                            this.setVisible(false);
+                        }
+                        pinoAuxiliar2 = 0;
+                    }
+                }
+                break;
         }
-        model.addRow(fila); 
+        model.addRow(fila);
         tablaPuntaje.setModel(model);
-        
+
     }
 
     private void crearTabla() {
@@ -1448,6 +1920,7 @@ public class Game extends javax.swing.JFrame {
         model.addColumn("8"); 
         model.addColumn("9");
         model.addColumn("10");
+        model.addColumn("Total");
         model.addRow(new Object[]{});
         model.addRow(new Object[]{});
         model.addRow(new Object[]{});
@@ -1455,8 +1928,144 @@ public class Game extends javax.swing.JFrame {
         tablaPuntaje.setModel(model);
         tablaPuntaje.setEnabled(false);
     }
+    
+    
+     
+    private void strike(byte turno) {
+        strike[turno]=true;
+        scoreAux[turno]=score1;
+      
+    }
+    
+    private void strike2(byte turno) {
+        strike2[turno]=true;
+        scoreAux2[turno]=score2;
+    }
+    
+   
+    private void spare(byte turno) {
+        spore[turno]=true;
+        scoreAux[turno]=score1;
+       
+    }
 
-    private void strikeSpare() {
+    private boolean comprobarSpore(byte turno, int pinos) {
+        if(spore[turno-1]!=null)
+            if((boolean)spore[turno-1]==true){
+                            return true;
+            }
+        
+       return false;
+                
+    }
+
+    
+    private void spare2(byte turno) {
+        spore2[turno]=true;
+        scoreAux2[turno]=score2;
+        System.out.println("Spare");
+    
+    }
+    
+    private boolean comprobarSpore2(byte turno, int pinos) {
+        if(spore2[turno-1]!=null)
+            if((boolean)spore2[turno-1]==true){
+                            return true;
+            }
+        
+       return false;
+    }
+    
+     private boolean comprobarStrike(byte turno, int pinos) {
+        if(strike[turno-1]!=null)
+            if((boolean)strike[turno-1]==true){
+                            return true;
+            }
+        
+       return false;
+    }
+
+
+    
+
+    private void strikeE() {
+       
+        
+       
+    }
+
+    private void spareE() {
+        
+       DefaultTableModel model= (DefaultTableModel)tablaPuntaje.getModel();
+       resetPinos();
+       pintarPinos();
+        pinos=10;
+        intento=1;
+        int lanzamiento;
+        lanzamiento= Random.AzarJ(pinos,(byte)8);
+      
+        pinos = (byte) (pinos - lanzamiento);
+        model.setValueAt(score1+lanzamiento, 1, 9);
+        score1+=lanzamiento;
+        
+       if(lanzamiento==10){
+
+           score1+=lanzamiento;
+           model.setValueAt("X", 0, 10);
+           model.setValueAt(score1, 1, 10);
+           }
+       else{
+           score1+=lanzamiento;
+           model.setValueAt(lanzamiento, 0, 10);
+           model.setValueAt(score1, 1, 10);
+           
+       }
+       btnLanza1.setEnabled(false);
+       btnLanza2.setEnabled(true);
+    }
+
+    private void spare2E() {
+        DefaultTableModel model= (DefaultTableModel)tablaPuntaje.getModel();
+       resetPinos();
+       pintarPinos();
+        pinos=10;
+        intento=1;
+        int lanzamiento;
+        lanzamiento= Random.AzarJ(pinos,(byte)8);
+      
+        pinos = (byte) (pinos - lanzamiento);
+        model.setValueAt(score2+lanzamiento, 3, 9);
+        score2+=lanzamiento;
+        
+       if(lanzamiento==10){
+
+           score2+=lanzamiento;
+           model.setValueAt("X", 2, 10);
+           model.setValueAt(score2, 3, 10);
+           }
+       else{
+           score2+=lanzamiento;
+           model.setValueAt(lanzamiento,2, 10);
+           model.setValueAt(score2, 3, 10);
+           
+       }
+       btnLanza1.setEnabled(false);
+       btnLanza2.setEnabled(false);
         
     }
+
+   
+    private boolean comprobarStrike2(byte turno, int pinos) {
+         if(strike2[turno-1]!=null)
+            if((boolean)strike2[turno-1]==true){
+                            return true;
+            }
+        
+       return false;
+    }
+
+ 
+    
+
+   
 }
