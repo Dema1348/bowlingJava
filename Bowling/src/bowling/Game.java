@@ -349,7 +349,7 @@ public class Game extends javax.swing.JFrame {
         
         int lanzamiento;
         if(intento==1)
-            lanzamiento= Random.AzarJ(pinos,(byte)0);
+            lanzamiento= Random.AzarJ(pinos,(byte)10);
         else
             lanzamiento = Random.Azar(pinos);
         botarPino(lanzamiento);
@@ -405,7 +405,7 @@ public class Game extends javax.swing.JFrame {
         {    
         int lanzamiento;
         if(intento==1)
-            lanzamiento= Random.AzarJ(pinos,(byte)9);
+            lanzamiento= Random.AzarJ(pinos,(byte)10);
         else
             lanzamiento = Random.Azar(pinos);
         botarPino2(lanzamiento);
@@ -1080,17 +1080,23 @@ public class Game extends javax.swing.JFrame {
 
                     }
 
-                    if (pinos == 10) {
-                        pinoAuxiliar1 = 0;
+                    if (pinos == 10) {                       
                         model.setValueAt("X", 0, 2);
                         score1 += pinos;
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                            
+                             model.setValueAt(score1 , 1, 0);
+                          
+                        }
+                        pinoAuxiliar1 = 0;
                     } else {
                         score1 += pinos;
                         if (comprobarStrike(turno, pinos)) {
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
-
+                            eliminarStrike(turno);
+                            
                         }
                         model.setValueAt(pinos, 0, 2);
                         
@@ -1103,7 +1109,7 @@ public class Game extends javax.swing.JFrame {
                          if (comprobarStrike(turno, pinos)) {
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
-
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 2) + "- /", 0, 2);
                         spare(turno);
@@ -1115,7 +1121,8 @@ public class Game extends javax.swing.JFrame {
                         if (comprobarStrike(turno, pinos)) {
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 1);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
-
+                            eliminarStrike(turno);
+                            
                         }
                         model.setValueAt(model.getValueAt(0, 2) + "-" + pinos, 0, 2);
                         model.setValueAt(score1, 1, 2);
@@ -1138,6 +1145,10 @@ public class Game extends javax.swing.JFrame {
                             pinoAuxiliar2 = 0;
                             model.setValueAt("X", 2, 2);
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                             model.setValueAt(score2 , 3, 0);
+                          
+                        }
                         } else {
                             score2 += pinos;
                              if (comprobarStrike2(turno, pinos)) {
@@ -1154,6 +1165,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 1);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 2) + "- /", 2, 2);
                             spare2(turno);
@@ -1164,6 +1176,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 1);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 2) + "-" + pinos, 2, 2);
                             model.setValueAt(score2, 3, 2);
@@ -1189,6 +1202,11 @@ public class Game extends javax.swing.JFrame {
                         score1 += pinos;
                         model.setValueAt("X", 0, 3);
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                            score1+=20;
+                             model.setValueAt(score1 , 1, 1);
+                          
+                        }
                     } else {
                         model.setValueAt(pinos, 0, 3);
                         score1 += pinos;
@@ -1207,6 +1225,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 2);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         spare(turno);
                         
@@ -1218,6 +1237,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 2);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 3) + "-" + pinos, 0, 3);
                         model.setValueAt(score1, 1, 3);
@@ -1239,6 +1259,12 @@ public class Game extends javax.swing.JFrame {
                             pinoAuxiliar2 = 0;
                             model.setValueAt("X", 2, 3);
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 1);
+                             
+                          
+                        }
                         } else {
                             score2 += pinos;
                             if (comprobarStrike2(turno, pinos)) {
@@ -1256,6 +1282,7 @@ public class Game extends javax.swing.JFrame {
                              if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 2);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 3) + "- /", 2, 3);
                             spare2(turno);
@@ -1266,6 +1293,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 2);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 3) + "-" + pinos, 2, 3);
                             model.setValueAt(score2, 3, 3);
@@ -1289,6 +1317,11 @@ public class Game extends javax.swing.JFrame {
                         score1 += pinos;
                         model.setValueAt("X", 0, 4);
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                             score1+=20;
+                             model.setValueAt(score1 , 1, 2);
+                          
+                        }
                     } else {
                         score1 += pinos;
                         if (comprobarStrike(turno, pinos)) {
@@ -1307,6 +1340,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 3);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 4) + "- /", 0, 4);
                         spare(turno);
@@ -1317,6 +1351,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 3);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 4) + "-" + pinos, 0, 4);
                         model.setValueAt(score1, 1, 4);
@@ -1339,11 +1374,17 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt("X", 2, 4);
 
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 2);
+                          
+                        }
                         } else {
                             score2 += pinos;
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                 
                             }
                             model.setValueAt(pinos, 2, 4);
                             
@@ -1356,6 +1397,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                 eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 4) + "- /", 2, 4);
                             spare2(turno);
@@ -1366,6 +1408,7 @@ public class Game extends javax.swing.JFrame {
                              if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 3);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                 eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 4) + "-" + pinos, 2, 4);
                             model.setValueAt(score2, 3, 4);
@@ -1389,6 +1432,11 @@ public class Game extends javax.swing.JFrame {
                         pinoAuxiliar1 = 0;
                         model.setValueAt("X", 0, 5);
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                             score1+=20;
+                             model.setValueAt(score1 , 1, 3);
+                          
+                        }
                     } else {
                         score1 += pinos;
                         if (comprobarStrike(turno, pinos)) {
@@ -1407,9 +1455,11 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 4);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 5) + "- /", 0, 5);
                         spare(turno);
+                         
                         
 
                     } else {
@@ -1420,6 +1470,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 4);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                             eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 5) + "-" + pinos, 0, 5);
                         model.setValueAt(score1, 1, 5);
@@ -1442,11 +1493,17 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt("X", 2, 5);
 
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 3);
+                          
+                        }
                         } else {
                             score2 += pinos;
                              if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                               
                             }
                             model.setValueAt(pinos, 2, 5);
                            
@@ -1459,6 +1516,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 5) + "- /", 2, 5);
                             spare2(turno);
@@ -1469,6 +1527,7 @@ public class Game extends javax.swing.JFrame {
                              if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 4);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 5) + "-" + pinos, 2, 5);
                             model.setValueAt(score2, 3, 5);
@@ -1492,6 +1551,11 @@ public class Game extends javax.swing.JFrame {
                         pinoAuxiliar1 = 0;
                         model.setValueAt("X", 0, 6);
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                             score1+=20;
+                             model.setValueAt(score1 , 1,4);
+                          
+                        }
                     } else {
                         score1 += pinos;
                         if (comprobarStrike(turno, pinos)) {
@@ -1510,6 +1574,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 5);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 6) + "- /", 0, 6);
                         spare(turno);
@@ -1522,6 +1587,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 5);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 6) + "-" + pinos, 0, 6);
                         model.setValueAt(score1, 1, 6);
@@ -1544,6 +1610,11 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt("X", 2, 6);
 
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 4);
+                          
+                        }
                         } else {
                             score2 += pinos;
                              if (comprobarStrike2(turno, pinos)) {
@@ -1561,6 +1632,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 5);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 6) + "- /", 2, 6);
                             spare2(turno);
@@ -1571,6 +1643,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 5);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 6) + "-" + pinos, 2, 6);
                             model.setValueAt(score2, 3, 6);
@@ -1594,6 +1667,11 @@ public class Game extends javax.swing.JFrame {
                         pinoAuxiliar1 = 0;
                         model.setValueAt("X", 0, 7);
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                             score1+=20;
+                             model.setValueAt(score1 , 1, 5);
+                          
+                        }
                     } else {
                         score1 += pinos;
                         if (comprobarStrike(turno, pinos)) {
@@ -1612,6 +1690,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 6);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 7) + "- /", 0, 7);
                         spare(turno);
@@ -1623,6 +1702,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 6);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 7) + "-" + pinos, 0, 7);
                         model.setValueAt(score1, 1, 7);
@@ -1645,6 +1725,11 @@ public class Game extends javax.swing.JFrame {
                             model.setValueAt("X", 2, 7);
 
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 5);
+                          
+                        }
                         } else {
                             score2 += pinos;
                             if (comprobarStrike2(turno, pinos)) {
@@ -1662,6 +1747,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 6);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 7) + "- /", 2, 7);
                             spare2(turno);
@@ -1672,6 +1758,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 6);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 7) + "-" + pinos, 2, 7);
                             model.setValueAt(score2, 3, 7);
@@ -1695,6 +1782,11 @@ public class Game extends javax.swing.JFrame {
                         pinoAuxiliar1 = 0;
                         model.setValueAt("X", 0, 8);
                         strike(turno);
+                        if(comprobarStrikeDoble(turno)){
+                             score1+=20;
+                             model.setValueAt(score1 , 1, 6);
+                          
+                        }
                     } else {
                         score1 += pinos;
                         if (comprobarStrike(turno, pinos)) {
@@ -1713,6 +1805,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 7);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 8) + "- /", 0, 8);
                         spare(turno);
@@ -1725,6 +1818,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 7);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 8) + "-" + pinos, 0, 8);
                         model.setValueAt(score1, 1, 8);
@@ -1746,6 +1840,11 @@ public class Game extends javax.swing.JFrame {
                             pinoAuxiliar2 = 0;
                             model.setValueAt("X", 2, 8);
                             strike2(turno);
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 6);
+                          
+                        }
                         } else {
                             score2 += pinos;
                             if (comprobarStrike2(turno, pinos)) {
@@ -1763,6 +1862,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 7);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 8) + "- /", 2, 8);
                             spare2(turno);
@@ -1773,6 +1873,7 @@ public class Game extends javax.swing.JFrame {
                              if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 7);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 8) + "-" + pinos, 2, 8);
                             model.setValueAt(score2, 3, 8);
@@ -1795,7 +1896,14 @@ public class Game extends javax.swing.JFrame {
                         score1 += pinos;
                         pinoAuxiliar1 = 0;
                         model.setValueAt("X", 0, 9);
+                        
+                        if(comprobarStrikeDoble(turno)){
+                             score1+=20;
+                             model.setValueAt(score1 , 1, 7);
+                          
+                        }
                         strikeE();
+                        return;
                     } else {
                         score1 += pinos;
                         model.setValueAt(pinos, 0, 9);
@@ -1814,9 +1922,11 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 8);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 9) + "- /", 0, 9);
                         spareE();
+                        
                         
 
                     } else {
@@ -1826,6 +1936,7 @@ public class Game extends javax.swing.JFrame {
 
                             model.setValueAt((int) scoreAux[turno - 1] + pinoAuxiliar1, 1, 8);
                             score1 = (short) (scoreAux[turno - 1] + pinoAuxiliar1);
+                            eliminarStrike(turno);
                         }
                         model.setValueAt(model.getValueAt(0, 9) + "-" + pinos, 0, 9);
                         model.setValueAt(score1, 1, 9);
@@ -1849,7 +1960,14 @@ public class Game extends javax.swing.JFrame {
                             pinoAuxiliar2 = 0;
                             model.setValueAt("X", 2, 9);
 
-                            strike2(turno);
+                           
+                            if(comprobarStrikeDoble2(turno)){
+                                 score2+=20;
+                             model.setValueAt(score2 , 3, 7);
+                          
+                        }
+                             strike2(turno);
+                             strikeE2();
 
                             Save();
                             Main main = new Main();
@@ -1872,6 +1990,7 @@ public class Game extends javax.swing.JFrame {
                             if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 8);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike2(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 9) + "- /", 2, 9);
                             spare2E();
@@ -1887,6 +2006,7 @@ public class Game extends javax.swing.JFrame {
                              if (comprobarStrike2(turno, pinos)) {
                                 model.setValueAt((int) scoreAux2[turno - 1] + pinoAuxiliar2, 3, 8);
                                 score2 = (short) (scoreAux2[turno - 1] + pinoAuxiliar2);
+                                eliminarStrike(turno);
                             }
                             model.setValueAt(model.getValueAt(2, 9) + "-" + pinos, 2, 9);
                             model.setValueAt(score2, 3, 9);
@@ -1989,10 +2109,88 @@ public class Game extends javax.swing.JFrame {
     
 
     private void strikeE() {
+       DefaultTableModel model= (DefaultTableModel)tablaPuntaje.getModel();
+       resetPinos();
+       pintarPinos();
+        pinos=10;
+        intento=1;
+        int lanzamiento;
+        lanzamiento= Random.AzarJ(pinos,(byte)10);
+      
+        pinos = (byte) (pinos - lanzamiento);
+        model.setValueAt(score1+lanzamiento, 1, 9);
+        score1+=lanzamiento;
+        
+       if(lanzamiento==10){
+            resetPinos();
+             pintarPinos();
+           score1+=20;
+           model.setValueAt("X", 0, 10);
+           model.setValueAt(score1, 1, 8);
+            if(score1==270){
+            score1+=30;
+              model.setValueAt("X-X", 0, 10);
+              model.setValueAt(score1, 1, 9);
+               model.setValueAt(score1, 1, 10);
+            }
+            
+           }
+       else{
+           score1+=lanzamiento;
+           model.setValueAt(lanzamiento, 0, 10);
+           model.setValueAt(score1, 1, 10);
+           
+       }
        
+      btnLanza1.setEnabled(false);
+      btnLanza2.setEnabled(true);
+      contador++;
         
        
     }
+    
+    private void strikeE2() {
+       DefaultTableModel model= (DefaultTableModel)tablaPuntaje.getModel();
+       resetPinos();
+       pintarPinos();
+        pinos=10;
+        intento=1;
+        int lanzamiento;
+        lanzamiento= Random.AzarJ(pinos,(byte)10);
+      
+        pinos = (byte) (pinos - lanzamiento);
+        model.setValueAt(score1+lanzamiento, 3, 9);
+        score1+=lanzamiento;
+        
+       if(lanzamiento==10){
+            resetPinos();
+             pintarPinos();
+           score1+=20;
+           model.setValueAt("X", 2, 10);
+           model.setValueAt(score1, 3, 8);
+            if(score1==270){
+            score1+=30;
+              model.setValueAt("X-X", 2, 10);
+              model.setValueAt(score1, 3, 9);
+               model.setValueAt(score1, 3, 10);
+            }
+            
+           }
+       else{
+           score1+=lanzamiento;
+           model.setValueAt(lanzamiento, 2, 10);
+           model.setValueAt(score1, 3, 10);
+           
+       }
+       
+      btnLanza1.setEnabled(false);
+      btnLanza2.setEnabled(false);
+      contador++;
+        
+       
+    }
+    
+    
 
     private void spareE() {
         
@@ -2062,6 +2260,36 @@ public class Game extends javax.swing.JFrame {
             }
         
        return false;
+    }
+
+    private boolean comprobarStrikeDoble(byte turno) {
+        if(strike[turno-2]!=null)
+            if((boolean)strike[turno-2]==true){
+                            return true;
+            }
+        
+       return false;
+    }
+
+    private boolean comprobarStrikeDoble2(byte turno) {
+        if(strike2[turno-2]!=null)
+            if((boolean)strike2[turno-2]==true){
+                            return true;
+            }
+        
+       return false;
+    }
+
+    private void eliminarStrike(byte turno) {
+        strike[turno-1]=false;
+        
+            
+    }
+    
+     private void eliminarStrike2(byte turno) {
+        strike2[turno-1]=false;
+        
+            
     }
 
  
